@@ -11,7 +11,9 @@ public class Game {
 		isMuted = false;
 		isPaused = false;
 	}
-	
+	public View getCurrentView() {
+		return this.currentView;
+	}
 	void changeView(View v){
 		//TODO
 	}

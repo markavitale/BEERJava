@@ -1,18 +1,24 @@
 import java.awt.Image;
 import java.util.ArrayList;
 
+import javax.swing.ImageIcon;
+
 
 public class View {
 	String description;
-	Image background;
+	ImageIcon background;
 	ArrayList<View> possibleMoves;
 	ArrayList<Region> clickableRegions;
 	
-	public View(String cDescription, Image cBackground){
+	public View(String cDescription, ImageIcon cBackground){
 		description = cDescription;
 		background = cBackground;
 		possibleMoves = new ArrayList<View>();
 		clickableRegions = new ArrayList<Region>();
+	}
+	
+	public ImageIcon getCurrentImage() {
+		return background;
 	}
 	
 	void addView(View v){
