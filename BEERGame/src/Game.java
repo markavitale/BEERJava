@@ -27,4 +27,12 @@ public class Game {
 	void unmuteGame(){
 		isMuted = false;
 	}
+	
+	Boolean isMuted(){
+		return isMuted;
+	}
+	
+	Boolean isPaused(){
+		return isPaused;
+	}
 }
