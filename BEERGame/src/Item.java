@@ -24,5 +24,7 @@ public class Item {
 	
 	void addInteractableItem(Item i){
 		interactableItems.add(i);
+		
+		
 	}
 }
