@@ -19,9 +19,20 @@ public class RegionTest {
 	}
 	
 	@Test
+	public void getXTestFalse(){
+		assertFalse(newRegion.getX() == 2);
+	}
+	
+	@Test
 	public void getYTest(){
 		assertEquals(newRegion.getY(), 2);
 	}
+	
+	@Test
+	public void getYTestFalse(){
+		assertFalse(newRegion.getY() == 11);
+	}
+	
 	
 	@Test
 	public void getWidthTest(){
@@ -29,8 +40,19 @@ public class RegionTest {
 	}
 	
 	@Test
+	public void getWidthTestFalse(){
+		assertFalse(newRegion.getWidth() == 12);
+	}
+	
+	
+	@Test
 	public void getHeightTest(){
 		assertEquals(newRegion.getHeight(), 4);
+	}
+	
+	@Test
+	public void getHeightTestFalse(){
+		assertFalse(newRegion.getHeight() == 12);
 	}
 	
 	@Test

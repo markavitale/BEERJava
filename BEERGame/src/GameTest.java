@@ -24,6 +24,11 @@ public class GameTest {
 	}
 	
 	@Test
+	public void testGameCreatePlayerFalse() {
+		assertFalse("Tylerdsadadd".equals(p.getPlayerName()));
+	}
+	
+	@Test
 	public void testMuteGame1() {
 		assertFalse(g.isMuted());
 	}
