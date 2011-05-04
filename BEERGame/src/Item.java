@@ -5,26 +5,32 @@ public class Item {
 	String name;
 	String description;
 	ArrayList<Item> interactableItems;
-	
-	public Item(String cName, String cDescription){
+
+	public Item(String cName, String cDescription) {
 		name = cName;
 		description = cDescription;
 		interactableItems = new ArrayList<Item>();
 	}
-	String getName(){
+
+	String getName() {
 		return name;
 	}
-	String getDescription(){
+
+	String getDescription() {
 		return description;
 	}
-	
-	boolean canInteractWithItem(Item i){
+
+	boolean canInteractWithItem(Item i) {
 		return interactableItems.contains(i);
 	}
-	
-	void addInteractableItem(Item i){
-		interactableItems.add(i);
-		
-		
+
+	void addInteractableItem(Item i) {
+		if (!canInteractWithItem(i)) {
+			interactableItems.add(i);
+		}
+		if (!i.canInteractWithItem(this)) {
+			i.addInteractableItem(this);
+		}
+
 	}
 }

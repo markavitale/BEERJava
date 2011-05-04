@@ -18,10 +18,7 @@ public class ItemTest {
 		
 		i1.addInteractableItem(i2);
 		i1.addInteractableItem(i3);
-		i2.addInteractableItem(i1);
 		i2.addInteractableItem(i4);
-		i3.addInteractableItem(i1);
-		i4.addInteractableItem(i2);
 	}
 
 	@Test
@@ -91,5 +88,10 @@ public class ItemTest {
 	@Test
 	public void testIsInteractable3() {
 		assertTrue(i2.canInteractWithItem(i4));
+	}
+	
+	@Test
+	public void testIsInteractable4() {
+		assertTrue(i2.canInteractWithItem(i1));
 	}
 }
