@@ -8,13 +8,14 @@ import org.junit.Test;
 
 public class GameTest {
 
-	Player p = new Player("Tyler");
+	Player p;
 	View v;
-	Game g = new Game(p, v);
+	Game g;
+	
 	@Before
 	public void setUp() throws Exception {
-		Player p = new Player("Tyler");
-		View v;
+		p = new Player("Tyler");
+		g = new Game(p, v);
 	}
 
 	@Test
@@ -59,6 +60,7 @@ public class GameTest {
 	
 	@After
 	public void tearDown() throws Exception {
+	
 	}
 
 }
