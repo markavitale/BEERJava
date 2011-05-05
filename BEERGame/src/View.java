@@ -21,15 +21,34 @@ public class View {
 		return background;
 	}
 	
-	ArrayList<Region> getRegions() {
+	public String getCurrentDescription() {
+		return this.description;
+	}
+	
+	public ArrayList<Region> getRegions() {
 		return this.clickableRegions;
 	}
+	
+	public ArrayList<View> getViews() {
+		return this.possibleMoves;
+	}
+	
 	void addView(View v){
+		if (!possibleMoves.contains(v)){
 		possibleMoves.add(v);
+		}
+		if (!v.possibleMoves.contains(this)) {
+			v.possibleMoves.add(this);
+		}
 	}
 	
 	void removeView(View v){
-		possibleMoves.remove(v);
+		if (possibleMoves.contains(v)) {
+			possibleMoves.remove(v);
+		}
+		if (v.possibleMoves.contains(this)){
+			v.possibleMoves.remove(this);
+		}
 	}
 	
 	void addRegion(Region r){
