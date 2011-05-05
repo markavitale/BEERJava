@@ -21,6 +21,9 @@ public class View {
 		return background;
 	}
 	
+	ArrayList<Region> getRegions() {
+		return this.clickableRegions;
+	}
 	void addView(View v){
 		possibleMoves.add(v);
 	}
