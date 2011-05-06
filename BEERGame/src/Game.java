@@ -14,6 +14,10 @@ public class Game {
 	public View getCurrentView() {
 		return this.currentView;
 	}
+	
+	public Player getCurrentPlayer() {
+		return this.currentPlayer;
+	}
 	void changeView(View v){
 		//TODO
 	}

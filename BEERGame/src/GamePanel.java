@@ -40,10 +40,15 @@ class GamePanel extends JPanel implements MouseListener {
 
 	@Override
 	public void mouseClicked(MouseEvent arg0) {
+		Item taserItem = new Item("taser", "this taser hurts bad guys");
+		System.out.println(this.myGame.getCurrentPlayer().returnInventory());
 		ArrayList<Region> regionList = myGame.getCurrentView().getRegions();
 		for (int i = 0; i < regionList.size(); i++) {
 			if (regionList.get(i).isInsideRegion(arg0.getX(), arg0.getY())) {
+				if (!this.myGame.getCurrentPlayer().returnInventory().contains(taserItem)) {
 				setImage(new ImageIcon("notaser.jpg"));
+				this.myGame.getCurrentPlayer().addItem(taserItem);
+				}
 			}
 		}
 	}
