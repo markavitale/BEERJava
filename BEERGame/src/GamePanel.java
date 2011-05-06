@@ -25,7 +25,7 @@ class GamePanel extends JPanel implements MouseListener {
 
 	public void paintComponent(Graphics g) {
 		
-			g.drawImage(img, 0, 0, null);
+			g.drawImage(myGame.getCurrentView().getCurrentImage().getImage(), 0, 0, null);
 			ArrayList<Region> regionList = myGame.getCurrentView().getRegions();
 			for (int i = 0; i <regionList.size(); i++) {
 			g.drawRect(regionList.get(i).getX(), regionList.get(i).getY(), 
@@ -33,25 +33,31 @@ class GamePanel extends JPanel implements MouseListener {
 			}
 		}
 
-	public void setImage(ImageIcon image) {
-		this.img = image.getImage();
-		this.repaint();
-	}
-
-	@Override
-	public void mouseClicked(MouseEvent arg0) {
-		Item taserItem = new Item("taser", "this taser hurts bad guys");
-		System.out.println(this.myGame.getCurrentPlayer().returnInventory());
+	public void checkRegion(int x, int y) {
 		ArrayList<Region> regionList = myGame.getCurrentView().getRegions();
+		Region currentRegion;
+		
 		for (int i = 0; i < regionList.size(); i++) {
-			if (regionList.get(i).isInsideRegion(arg0.getX(), arg0.getY())) {
-				if (!this.myGame.getCurrentPlayer().returnInventory().contains(taserItem)) {
-				setImage(new ImageIcon("notaser.jpg"));
-				this.myGame.getCurrentPlayer().addItem(taserItem);
+			currentRegion = regionList.get(i);
+			if (currentRegion.isInsideRegion(x,y)) {
+				if (regionList.get(i).hasItem()) {
+					if (!this.myGame.getCurrentPlayer().returnInventory().contains(currentRegion.getItem())) {
+						
+					myGame.changeView(myGame.getCurrentView().getViews().get(0));
+					this.myGame.getCurrentPlayer().addItem(currentRegion.getItem());
+					this.repaint();
 				}
+			}
 			}
 		}
 	}
+	
+	@Override
+	public void mouseClicked(MouseEvent arg0) {
+		System.out.println(myGame.getCurrentView().getCurrentDescription());
+		checkRegion(arg0.getX(), arg0.getY());
+	}
+		
 
 	@Override
 	public void mouseEntered(MouseEvent arg0) {

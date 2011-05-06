@@ -1,8 +1,11 @@
+import java.util.ArrayList;
+
 public class Region {
 	int x;
 	int y;
 	int width;
 	int height;
+	Item itemToPickUp;
 	
 	public Region(int newX,int newY, int w, int h){
 		x = newX;
@@ -11,6 +14,25 @@ public class Region {
 		height = h;
 	}
 	
+	public Region(int newX,int newY, int w, int h, Item item){
+		x = newX;
+		y = newY;
+		width = w;
+		height = h;
+		itemToPickUp = item;
+	
+	}
+	
+	Item getItem() {
+		return itemToPickUp;
+	}
+
+	boolean hasItem() {
+		if (itemToPickUp == null) {
+			return false;
+		}
+		return true;
+	}
 	int getX(){
 		return x;
 	}

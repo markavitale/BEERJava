@@ -18,9 +18,10 @@ public class Game {
 	public Player getCurrentPlayer() {
 		return this.currentPlayer;
 	}
+	
 	void changeView(View v){
-		//TODO
-	}
+		currentView = v;
+		}
 	void pauseGame(){
 		isPaused = true;
 	}
