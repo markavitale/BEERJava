@@ -27,7 +27,7 @@ public class Player {
 		inventory.add(i);
 	}
 	
-	ArrayList<Item> returnInventory() {
+	ArrayList<Item> getInventory() {
 		return this.inventory;
 	}
 	boolean hasItem(Item i){
