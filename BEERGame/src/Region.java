@@ -6,6 +6,7 @@ public class Region {
 	int width;
 	int height;
 	Item itemToPickUp;
+	View v;
 	
 	public Region(int newX,int newY, int w, int h){
 		x = newX;
@@ -15,6 +16,16 @@ public class Region {
 	}
 	
 	public Region(int newX,int newY, int w, int h, Item item){
+		x = newX;
+		y = newY;
+		width = w;
+		height = h;
+		itemToPickUp = item;
+	
+	}
+	
+	public Region(int newX,int newY, int w, int h, Item item, View view){
+		v = view;
 		x = newX;
 		y = newY;
 		width = w;
