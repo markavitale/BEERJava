@@ -19,18 +19,15 @@ public class Launcher {
 	/**
 	 * @param args
 	 */
-	public ImageIcon image;
+	private ImageIcon image;
 	private Player p;
 	private View v1;
 	private View v2;
 	private Game game;
-	public ArrayList<ImageIcon> invImageList;
 
 	public Launcher() {
 		this.image = new ImageIcon("main.jpg");
 		this.p = new Player("Tyler");
-		this.invImageList = new ArrayList<ImageIcon>();
-		this.invImageList.add(new ImageIcon("taser.jpg"));
 		Item taserItem = new Item("taser", "this taser hurts bad guys",new ImageIcon("taser.jpg"));
 		Region taserRegion = new Region(56, 320, 25, 60, taserItem);
 		this.v1 = new View("main image view", image);
@@ -39,12 +36,15 @@ public class Launcher {
 		v1.addView(v2);
 		this.game = new Game(p, v1);
 	}
+	public Game getGame() {
+		return this.game;
+	}
 
 	public static void main(String[] args) {
 		Launcher l = new Launcher();
 		
 		InventoryPanel invPanel = new InventoryPanel(l.game);
-		GamePanel panel = new GamePanel(l.image.getImage(), l.game, invPanel);
+		GamePanel panel = new GamePanel(l.getGame(), invPanel);
 		JFrame frame = new JFrame();
 		frame.setLayout(new FlowLayout());
 		frame.add(panel);

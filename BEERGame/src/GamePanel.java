@@ -15,11 +15,11 @@ class GamePanel extends JPanel implements MouseListener {
 	private Game myGame;
 	private InventoryPanel invPanel;
 	
-	public GamePanel(Image img, Game g, InventoryPanel inventoryPanel) {
+	public GamePanel(Game g, InventoryPanel inventoryPanel) {
 		this.addMouseListener(this);
 		this.invPanel = inventoryPanel;
 		this.myGame = g;
-		this.img = img;
+		this.img = g.getCurrentView().getCurrentImage().getImage();
 		Dimension size = new Dimension(img.getWidth(null), img.getHeight(null));
 		setPreferredSize(size);
 		setLayout(new FlowLayout());
