@@ -124,8 +124,7 @@ public class Launcher {
 
 				@Override
 				public void actionPerformed(ActionEvent arg0) {
-					System.out.println("french");
-					GameBar.this.l.getGame().changeLanguage();
+					GameBar.this.l.getGame().setLanguage("french");
 					GameBar.this.l.gamePanel.repaint();
 				}
 
@@ -136,8 +135,7 @@ public class Launcher {
 
 				@Override
 				public void actionPerformed(ActionEvent arg0) {
-					System.out.println("english");
-					GameBar.this.l.getGame().changeLanguage();
+					GameBar.this.l.getGame().setLanguage("english");
 					GameBar.this.l.gamePanel.repaint();
 				}
 

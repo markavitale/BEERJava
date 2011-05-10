@@ -27,13 +27,8 @@ public class Game implements Serializable {
 		isPaused = false;
 	}
 	
-	public void changeLanguage() {
-		if (this.language == "english") {
-			this.language = "french";
-		}
-		else {
-			this.language = "english";
-		}
+	public void setLanguage(String lang) {
+		this.language = lang;
 	}
 	/**
 	 * @return the current view
