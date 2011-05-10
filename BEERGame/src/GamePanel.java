@@ -28,7 +28,7 @@ class GamePanel extends JPanel implements MouseListener {
 	public void paintComponent(Graphics g) {
 		View v;
 		System.out.println(myGame.getLanguage());
-		if (myGame.getLanguage() == "french") {
+		if (myGame.getLanguage() == "french" && (myGame.getCurrentView().getFrenchAlternate() != null)) {
 			v = myGame.getCurrentView().getFrenchAlternate();
 		}
 		else {
