@@ -70,8 +70,27 @@ public class Launcher {
 	public Game getGame() {
 		return this.game;
 	}
-
-
+	public void setGame(Game g) {
+		this.game = g;
+	}
+	public void writeGame(Launcher l) throws Exception {
+		ObjectOutputStream objectOut = new ObjectOutputStream(
+				new BufferedOutputStream(
+		        new FileOutputStream("C:/Users/Administrator/Documents/" +
+		        		"csse376/BEERJava/BEERGame/objects.bin")));
+		objectOut.writeObject(l.getGame());
+		objectOut.close();
+	}
+	public Game readGame() throws Exception {
+		ObjectInputStream objectIn = null;
+		
+		objectIn = new ObjectInputStream(new BufferedInputStream(
+				new FileInputStream("C:/Users/Administrator/" +
+						"Documents/csse376/BEERJava/BEERGame/objects.bin")));
+		
+		return  (Game) objectIn.readObject();
+		
+	}
 	/**
 	 * @param args
 	 * @throws Exception
@@ -80,19 +99,12 @@ public class Launcher {
 	 */
 	public static void main(String[] args) throws Exception {
 		Launcher l = new Launcher();
-		ObjectOutputStream objectOut = new ObjectOutputStream(
-				new BufferedOutputStream(
-		        new FileOutputStream("C:/Users/Administrator/Documents/" +
-		        		"csse376/BEERJava/BEERGame/objects.bin")));
-		objectOut.writeObject(l.getGame());
-		ObjectInputStream objectIn = null;
-		Game game2 = null;
-		objectIn = new ObjectInputStream(new BufferedInputStream(
-				new FileInputStream("C:/Users/Administrator/" +
-						"Documents/csse376/BEERJava/BEERGame/objects.bin")));
-		objectOut.close();
-		game2 = (Game) objectIn.readObject();
-		objectIn.close();
+		l.writeGame(l);
+		
+		
+		
+		l.setGame(l.readGame());
+		
 		InventoryPanel invPanel = new InventoryPanel(l.getGame());
 		l.gamePanel = new GamePanel(l.getGame(), invPanel);
 		JFrame frame = new JFrame();
