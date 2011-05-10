@@ -31,6 +31,13 @@ public class View implements Serializable{
 		clickableRegions = new ArrayList<Region>();
 	}
 	
+	public View(String cDescription, ImageIcon cBackground, View french){
+		description = cDescription;
+		frenchAlternate = french;
+		background = cBackground;
+		possibleMoves = new ArrayList<View>();
+		clickableRegions = new ArrayList<Region>();
+	}
 	/**
 	 * @param cDescription - description of this view
 	 * @param cBackground - the background image for this view
@@ -38,12 +45,21 @@ public class View implements Serializable{
 	 * 
 	 * this returns the French version of this view.
 	 */
-	public View(String cDescription, ImageIcon cBackground, View french){
+	public View(String cDescription, ImageIcon cBackground, View french, Region r){
 		description = cDescription;
 		frenchAlternate = french;
 		background = cBackground;
 		possibleMoves = new ArrayList<View>();
 		clickableRegions = new ArrayList<Region>();
+		clickableRegions.add(r);
+	}
+	
+	public View(String cDescription, ImageIcon cBackground, Region r){
+		description = cDescription;
+		background = cBackground;
+		possibleMoves = new ArrayList<View>();
+		clickableRegions = new ArrayList<Region>();
+		clickableRegions.add(r);
 	}
 	/**
 	 * @return the image for this view

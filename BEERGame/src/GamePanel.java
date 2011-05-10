@@ -4,18 +4,22 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 import java.util.ArrayList;
 
 import javax.swing.JPanel;
 
-class GamePanel extends JPanel implements MouseListener {
+class GamePanel extends JPanel implements MouseListener, MouseMotionListener {
 
 	private Image img;
 	private Game myGame;
 	private InventoryPanel invPanel;
-	
+	private boolean mouseIsInsideRegion;
+
 	public GamePanel(Game g, InventoryPanel inventoryPanel) {
+		mouseIsInsideRegion = false;
 		this.addMouseListener(this);
+		this.addMouseMotionListener(this);
 		this.invPanel = inventoryPanel;
 		this.myGame = g;
 		this.img = g.getCurrentView().getCurrentImage().getImage();
@@ -27,39 +31,41 @@ class GamePanel extends JPanel implements MouseListener {
 
 	public void paintComponent(Graphics g) {
 		View v;
-		if (myGame.getLanguage() == "french" && (myGame.getCurrentView().getFrenchAlternate() != null)) {
+		if (myGame.getLanguage() == "french"
+				&& (myGame.getCurrentView().getFrenchAlternate() != null)) {
 			v = myGame.getCurrentView().getFrenchAlternate();
-		}
-		else {
+		} else {
 			v = myGame.getCurrentView();
 		}
-		g.drawImage(v.getCurrentImage().getImage(), 0, 0,
-				null);
-		ArrayList<Region> regionList = v.getRegions();
-		for (int i = 0; i < regionList.size(); i++) {
-			g.drawRect(regionList.get(i).getX(), regionList.get(i).getY(),
-					regionList.get(i).getWidth(), regionList.get(i).getHeight());
+		g.drawImage(v.getCurrentImage().getImage(), 0, 0, null);
+		if (mouseIsInsideRegion == true) {
+			ArrayList<Region> regionList = v.getRegions();
+			for (int i = 0; i < regionList.size(); i++) {
+				g.drawRect(regionList.get(i).getX(), regionList.get(i).getY(),
+						regionList.get(i).getWidth(), regionList.get(i)
+								.getHeight());
+			}
 		}
 	}
 
 	public void checkRegion(int x, int y) {
-		ArrayList<Region> regionList = myGame.getCurrentView().getRegions();
-		Region currentRegion;
-
-		for (int i = 0; i < regionList.size(); i++) {
-			currentRegion = regionList.get(i);
-			if (currentRegion.isInsideRegion(x, y)) {
-				if (regionList.get(i).hasItem()) {
-					if (!this.myGame.getCurrentPlayer().getInventory()
-							.contains(currentRegion.getItem())) {
-						myGame.changeView(myGame.getCurrentView().getViews()
-								.get(0));
-						this.myGame.getCurrentPlayer().addItem(
-								currentRegion.getItem());
-						this.invPanel.updateInventory();
-						this.repaint();
-					}
+		System.out.println(myGame.getCurrentView().getRegions().get(0));
+		Region currentRegion = myGame.getCurrentView().getRegions().get(0);
+		if (currentRegion.isInsideRegion(x, y)) {
+			if (currentRegion.hasItem()) {
+				if (!this.myGame.getCurrentPlayer().getInventory()
+						.contains(currentRegion.getItem())) {
+					myGame.changeView(currentRegion.getView());
+					mouseIsInsideRegion = false;
+					this.myGame.getCurrentPlayer().addItem(
+							currentRegion.getItem());
+					this.invPanel.updateInventory();
+					this.repaint();
 				}
+			} else {
+				myGame.changeView(currentRegion.getView());
+				mouseIsInsideRegion = false;
+				this.repaint();
 			}
 		}
 	}
@@ -67,7 +73,7 @@ class GamePanel extends JPanel implements MouseListener {
 	@Override
 	public void mouseClicked(MouseEvent arg0) {
 		checkRegion(arg0.getX(), arg0.getY());
-		
+
 	}
 
 	@Override
@@ -90,6 +96,26 @@ class GamePanel extends JPanel implements MouseListener {
 
 	@Override
 	public void mouseReleased(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void mouseDragged(MouseEvent e) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void mouseMoved(MouseEvent e) {
+		if (myGame.getCurrentView().getRegions().get(0)
+				.isInsideRegion(e.getX(), e.getY())) {
+			mouseIsInsideRegion = true;
+			this.repaint();
+		}else {
+			mouseIsInsideRegion = false;
+			this.repaint();
+		}
 		// TODO Auto-generated method stub
 
 	}

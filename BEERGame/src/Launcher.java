@@ -21,33 +21,34 @@ import javax.swing.JOptionPane;
  */
 public class Launcher {
 
-	private ImageIcon image;
-	private Player p;
-	private View v1;
-	private View v2;
-	private View v3;
 	private Game game;
-	private String language;
 	private GamePanel gamePanel;
 
 	/**
 	 * on creation of a Launcher object, the game is created and initialized
 	 */
 	public Launcher() {
-//		this.language = "english";
-//		this.image = new ImageIcon("images/main.jpg");
-//		this.p = new Player("Tyler");
-//		Item taserItem = new Item("taser", "this taser hurts bad guys",new 
-//				ImageIcon("images/taser.jpg"), new Region(0,0,32,60));
-//		Region taserRegion = new Region(56, 320, 25, 60, taserItem);
-//		
-//		this.v3 = new View("french image view",
-//				new ImageIcon("images/mainfrench.jpg"));
-//		this.v1 = new View("main image view", image, v3);
-//		this.v2 = new View("taser is gone!",new ImageIcon("images/notaser.jpg"));
-//		v1.addRegion(taserRegion);
-//		v1.addView(v2);
-//		this.game = new Game(p, v1);
+		
+		Region badGuyRegion = new Region(435,111,200,300);
+		View noTaserFrench = new View("taser is gone french", new ImageIcon("images/noTaserFrench.jpg"),badGuyRegion);
+		View noTaser = new View("taser is gone", 
+			new ImageIcon("images/noTaser.jpg"), noTaserFrench, badGuyRegion);
+		Item taserItem = new Item("taser", "this taser hurts bad guys",new 
+			ImageIcon("images/taser.jpg"), new Region(0,0,32,60));
+		Region taserRegion =new Region(32, 495, 60, 90, taserItem, noTaser);
+		View mainFrench = new View("opening view in french",
+				new ImageIcon("images/mainfrench.jpg"), taserRegion);
+		View main = new View("opening view in english", 
+				new ImageIcon("images/main.jpg"), mainFrench, taserRegion);
+		Region homeRegion = new Region(0,0,800,600, main);
+		View homeFrench = new View("home view in french", 
+				new ImageIcon("images/homeFrench.jpg"), homeRegion);
+		View home = new View("home view in english",
+				new ImageIcon("images/homeEnglish.jpg"), homeFrench, homeRegion);
+		
+		
+		Player p = new Player("Tyler");
+		this.game = new Game(p, home);
 		
 
 	}
@@ -59,6 +60,9 @@ public class Launcher {
 	}
 	public void setGame(Game g) {
 		this.game = g;
+	}
+	public GamePanel getGamePanel() {
+		return this.gamePanel;
 	}
 	public void writeGame(Launcher l) throws Exception {
 		ObjectOutputStream objectOut = new ObjectOutputStream(
@@ -88,7 +92,7 @@ public class Launcher {
 		
 		
 		
-		l.setGame(l.readGame());
+		//l.setGame(l.readGame());
 		String response = JOptionPane.showInputDialog(null, "What is your name?",
 				  "Enter your name", JOptionPane.QUESTION_MESSAGE);
 		l.getGame().getCurrentPlayer().setPlayerName(response);
@@ -105,37 +109,6 @@ public class Launcher {
 		frame.setVisible(true);
 	}
 
-	public static class GameBar extends JMenuBar {
-		public Launcher l;
-		public GameBar (JFrame frame, Launcher launch) {
-			frame = frame;
-			l = launch;
-			JMenu languageMenu = new JMenu("Language");
-			JMenuItem french = new JMenuItem("French");
-			french.addActionListener(new ActionListener() {
-
-				@Override
-				public void actionPerformed(ActionEvent arg0) {
-					GameBar.this.l.getGame().setLanguage("french");
-					GameBar.this.l.gamePanel.repaint();
-				}
-
-			});
-			languageMenu.add(french);
-			JMenuItem english = new JMenuItem("English");
-			english.addActionListener(new ActionListener() {
-
-				@Override
-				public void actionPerformed(ActionEvent arg0) {
-					GameBar.this.l.getGame().setLanguage("english");
-					GameBar.this.l.gamePanel.repaint();
-				}
-
-			});
-			languageMenu.add(english);
-			this.add(languageMenu);
-		}
-	}
 
 
 }
