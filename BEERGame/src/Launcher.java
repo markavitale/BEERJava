@@ -28,11 +28,13 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
+/**
+ * @author vitalema
+ *
+ * the class that launches the game.
+ */
 public class Launcher {
 
-	/**
-	 * @param args
-	 */
 	private ImageIcon image;
 	private Player p;
 	private View v1;
@@ -42,6 +44,9 @@ public class Launcher {
 	private String language;
 	private GamePanel gamePanel;
 
+	/**
+	 * on creation of a Launcher object, the game is created and initialized
+	 */
 	public Launcher() {
 		this.language = "english";
 		this.image = new ImageIcon("main.jpg");
@@ -50,7 +55,8 @@ public class Launcher {
 				ImageIcon("taser.jpg"), new Region(0,0,32,60));
 		Region taserRegion = new Region(56, 320, 25, 60, taserItem);
 		
-		this.v3 = new View("french image view", new ImageIcon("mainfrench.jpg"));
+		this.v3 = new View("french image view",
+				new ImageIcon("mainfrench.jpg"));
 		this.v1 = new View("main image view", image, v3);
 		this.v2 = new View("taser is gone!",new ImageIcon("notaser.jpg"));
 		v1.addRegion(taserRegion);
@@ -58,20 +64,32 @@ public class Launcher {
 		this.game = new Game(p, v1);
 
 	}
+	/**
+	 * @return the game created by this launcher.
+	 */
 	public Game getGame() {
 		return this.game;
 	}
 
 
+	/**
+	 * @param args
+	 * @throws Exception
+	 * 
+	 * the main method for BEER.  This creates the game and launches the GUI
+	 */
 	public static void main(String[] args) throws Exception {
 		Launcher l = new Launcher();
-		ObjectOutputStream objectOut = new ObjectOutputStream(new BufferedOutputStream(
-		        new FileOutputStream("C:/Users/Administrator/Documents/csse376/BEERJava/BEERGame/objects.bin")));
+		ObjectOutputStream objectOut = new ObjectOutputStream(
+				new BufferedOutputStream(
+		        new FileOutputStream("C:/Users/Administrator/Documents/" +
+		        		"csse376/BEERJava/BEERGame/objects.bin")));
 		objectOut.writeObject(l.getGame());
 		ObjectInputStream objectIn = null;
 		Game game2 = null;
-		objectIn = new ObjectInputStream(new BufferedInputStream(new FileInputStream(
-        "C:/Users/Administrator/Documents/csse376/BEERJava/BEERGame/objects.bin")));
+		objectIn = new ObjectInputStream(new BufferedInputStream(
+				new FileInputStream("C:/Users/Administrator/" +
+						"Documents/csse376/BEERJava/BEERGame/objects.bin")));
 		objectOut.close();
 		game2 = (Game) objectIn.readObject();
 		objectIn.close();

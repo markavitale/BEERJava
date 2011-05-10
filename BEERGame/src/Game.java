@@ -27,6 +27,11 @@ public class Game implements Serializable {
 		isPaused = false;
 	}
 	
+	/**
+	 * @param lang - the language for the game to be run in
+	 * 
+	 * set what language the game should be in
+	 */
 	public void setLanguage(String lang) {
 		this.language = lang;
 	}
@@ -37,6 +42,9 @@ public class Game implements Serializable {
 		return this.currentView;
 	}
 	
+	/**
+	 * @return the language the game should be played in.
+	 */
 	public String getLanguage() {
 		return this.language;
 	}

@@ -31,10 +31,12 @@ public class Item implements Serializable {
 	 * @param cName - the name of the item
 	 * @param cDescription - the description of the item
 	 * @param img - an image of the item
+	 * @param itemRegion - the clickable region for this item on the screen
 	 * 
 	 * This constructor also takes an image for display in the inventory.
 	 */
-	public Item(String cName, String cDescription, ImageIcon img, Region itemRegion) {
+	public Item(String cName, String cDescription, ImageIcon img,
+			Region itemRegion) {
 		r = itemRegion;
 		itemImage = img;
 		name = cName;

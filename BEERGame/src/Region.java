@@ -1,6 +1,12 @@
 import java.io.Serializable;
 import java.util.ArrayList;
 
+/**
+ * @author vitalema
+ * 
+ * This class represents a region on a view.
+ *
+ */
 public class Region implements Serializable {
 	int x;
 	int y;
@@ -9,6 +15,14 @@ public class Region implements Serializable {
 	Item itemToPickUp;
 	View v;
 	
+	/**
+	 * @param newX - x coordinate of top left point in the rectangle
+	 * @param newY - y coordinate of top left point in the rectangle
+	 * @param w - width of the region
+	 * @param h - height of the region
+	 * 
+	 * constructor for a region with the given coordinates and width/height
+	 */
 	public Region(int newX,int newY, int w, int h){
 		x = newX;
 		y = newY;
@@ -16,6 +30,16 @@ public class Region implements Serializable {
 		height = h;
 	}
 	
+	/**
+	 * @param newX - x coordinate of top left point in the rectangle
+	 * @param newY - y coordinate of top left point in the rectangle
+	 * @param w - width of the region
+	 * @param h - height of the region
+	 * @param item - an item associated with a region
+	 * 
+	 * This constructor associates an Item with a region so clicking within
+	 * that region allows the Player to interact with that Item
+	 */
 	public Region(int newX,int newY, int w, int h, Item item){
 		x = newX;
 		y = newY;
@@ -25,6 +49,17 @@ public class Region implements Serializable {
 	
 	}
 	
+	/**
+	 * @param newX - x coordinate of top left point in the rectangle
+	 * @param newY - y coordinate of top left point in the rectangle
+	 * @param w - width of the region
+	 * @param h - height of the region
+	 * @param item - an item associated with a region
+	 * @param view - the view that will replace the Game's currentView
+	 * 
+	 * this allows an item to be interacted with in a way that will change the
+	 * current view to the provided view.
+	 */
 	public Region(int newX,int newY, int w, int h, Item item, View view){
 		v = view;
 		x = newX;
