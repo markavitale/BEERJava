@@ -13,6 +13,7 @@ public class Item implements Serializable {
 	String description;
 	ArrayList<Item> interactableItems;
 	ImageIcon itemImage;
+	Region r;
 
 	/**
 	 * @param cName - the name of the item.
@@ -33,7 +34,8 @@ public class Item implements Serializable {
 	 * 
 	 * This constructor also takes an image for display in the inventory.
 	 */
-	public Item(String cName, String cDescription, ImageIcon img) {
+	public Item(String cName, String cDescription, ImageIcon img, Region itemRegion) {
+		r = itemRegion;
 		itemImage = img;
 		name = cName;
 		description = cDescription;
@@ -45,6 +47,10 @@ public class Item implements Serializable {
 
 	ImageIcon getItemImage() {
 		return this.itemImage;
+	}
+	
+	Region getRegion() {
+		return r;
 	}
 	
 	String getDescription() {

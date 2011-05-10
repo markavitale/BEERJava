@@ -6,8 +6,14 @@ import java.awt.Point;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JMenuBar;
 import javax.swing.JPanel;
+import javax.swing.JMenu;
+import javax.swing.JMenuItem;
 
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.awt.event.MouseEvent;
@@ -31,30 +37,50 @@ public class Launcher {
 	private Player p;
 	private View v1;
 	private View v2;
-	private Game game;
+	private View v3;
+	private Game englishGame;
+	private Game frenchGame;
+	private String language;
+	private GamePanel gamePanel;
 
 	public Launcher() {
+		this.language = "english";
 		this.image = new ImageIcon("main.jpg");
 		this.p = new Player("Tyler");
-		Item taserItem = new Item("taser", "this taser hurts bad guys",new ImageIcon("taser.jpg"));
+		Item taserItem = new Item("taser", "this taser hurts bad guys",new 
+				ImageIcon("taser.jpg"), new Region(0,0,32,60));
 		Region taserRegion = new Region(56, 320, 25, 60, taserItem);
 		this.v1 = new View("main image view", image);
+		this.v3 = new View("french image view", new ImageIcon("mainfrench.jpg"));
 		this.v2 = new View("taser is gone!",new ImageIcon("notaser.jpg"));
 		v1.addRegion(taserRegion);
 		v1.addView(v2);
-		this.game = new Game(p, v1);
+		this.englishGame = new Game(p, v1);
 	//	ctx.bind("game1", game);
 
 	}
 	public Game getGame() {
-		return this.game;
+		if (this.language == "english") {
+		return this.englishGame;
+		}
+		else {
+			return this.frenchGame;
+		}
 	}
 
+	public void changeLanguage() {
+		if (this.language == "english") {
+			this.language = "french";
+		}
+		else {
+			this.language = "english";
+		}
+	}
 	public static void main(String[] args) throws Exception {
 		Launcher l = new Launcher();
 		ObjectOutputStream objectOut = new ObjectOutputStream(new BufferedOutputStream(
 		        new FileOutputStream("C:/Users/Administrator/Documents/csse376/BEERJava/BEERGame/objects.bin")));
-		objectOut.writeObject(l.game);
+		objectOut.writeObject(l.englishGame);
 		ObjectInputStream objectIn = null;
 		Game game2 = null;
 		objectIn = new ObjectInputStream(new BufferedInputStream(new FileInputStream(
@@ -63,14 +89,43 @@ public class Launcher {
 		game2 = (Game) objectIn.readObject();
 		objectIn.close();
 		InventoryPanel invPanel = new InventoryPanel(game2);
-		GamePanel panel = new GamePanel(game2, invPanel);
+		l.gamePanel = new GamePanel(game2, invPanel);
 		JFrame frame = new JFrame();
+		JMenuBar bar = new JMenuBar();
+		frame.setJMenuBar(bar);
+		JMenu languageMenu = new JMenu("Language");
+		JMenuItem french = new JMenuItem("French");
+		french.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				System.out.println("french");
+				//Launcher.this.changeLanguage();
+				//no enclosing type error
+			}
+
+		});
+		languageMenu.add(french);
+		JMenuItem english = new JMenuItem("English");
+		english.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				System.out.println("english");
+			}
+
+		});
+		languageMenu.add(english);
+		bar.add(languageMenu);
+		
 		frame.setLayout(new FlowLayout());
-		frame.add(panel);
+		frame.add(l.gamePanel);
 		frame.add(invPanel);
 		frame.pack();
 		frame.setVisible(true);
 	}
+	
+
 
 
 }
