@@ -1,6 +1,7 @@
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Region {
+public class Region implements Serializable {
 	int x;
 	int y;
 	int width;
@@ -37,7 +38,11 @@ public class Region {
 	Item getItem() {
 		return itemToPickUp;
 	}
-
+	View getView() {
+		return v;
+	}
+	
+	
 	boolean hasItem() {
 		if (itemToPickUp == null) {
 			return false;

@@ -1,10 +1,12 @@
+import java.io.Serializable;
+
 
 /**
  * @author vitalema and hannantt
  *
  *This class represents the current state of the game
  */
-public class Game {
+public class Game implements Serializable {
 	Player currentPlayer;
 	View currentView;
 	boolean isMuted;

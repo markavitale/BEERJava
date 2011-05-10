@@ -1,10 +1,11 @@
 import java.awt.Image;
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 
 
-public class View {
+public class View implements Serializable{
 	String description;
 	ImageIcon background;
 	ArrayList<View> possibleMoves;

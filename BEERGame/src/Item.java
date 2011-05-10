@@ -1,3 +1,4 @@
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
@@ -6,7 +7,7 @@ import javax.swing.ImageIcon;
  * This class represents an item in the game.
  *
  */
-public class Item {
+public class Item implements Serializable {
 
 	String name;
 	String description;
