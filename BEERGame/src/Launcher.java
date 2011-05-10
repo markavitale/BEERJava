@@ -93,7 +93,7 @@ public class Launcher {
 		objectOut.close();
 		game2 = (Game) objectIn.readObject();
 		objectIn.close();
-		InventoryPanel invPanel = new InventoryPanel(game2);
+		InventoryPanel invPanel = new InventoryPanel(l.getGame());
 		l.gamePanel = new GamePanel(l.getGame(), invPanel);
 		JFrame frame = new JFrame();
 		GameBar bar = new GameBar(frame, l);
