@@ -84,7 +84,7 @@ public class Launcher {
 	 */
 	public static void main(String[] args) throws Exception {
 		Launcher l = new Launcher();
-		l.writeGame(l);
+		//l.writeGame(l);
 		
 		
 		
