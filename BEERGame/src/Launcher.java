@@ -38,8 +38,7 @@ public class Launcher {
 	private View v1;
 	private View v2;
 	private View v3;
-	private Game englishGame;
-	private Game frenchGame;
+	private Game game;
 	private String language;
 	private GamePanel gamePanel;
 
@@ -50,37 +49,25 @@ public class Launcher {
 		Item taserItem = new Item("taser", "this taser hurts bad guys",new 
 				ImageIcon("taser.jpg"), new Region(0,0,32,60));
 		Region taserRegion = new Region(56, 320, 25, 60, taserItem);
-		this.v1 = new View("main image view", image);
+		
 		this.v3 = new View("french image view", new ImageIcon("mainfrench.jpg"));
+		this.v1 = new View("main image view", image, v3);
 		this.v2 = new View("taser is gone!",new ImageIcon("notaser.jpg"));
 		v1.addRegion(taserRegion);
 		v1.addView(v2);
-		this.englishGame = new Game(p, v1);
-	//	ctx.bind("game1", game);
+		this.game = new Game(p, v1);
 
 	}
 	public Game getGame() {
-		if (this.language == "english") {
-		return this.englishGame;
-		}
-		else {
-			return this.frenchGame;
-		}
+		return this.game;
 	}
 
-	public void changeLanguage() {
-		if (this.language == "english") {
-			this.language = "french";
-		}
-		else {
-			this.language = "english";
-		}
-	}
+
 	public static void main(String[] args) throws Exception {
 		Launcher l = new Launcher();
 		ObjectOutputStream objectOut = new ObjectOutputStream(new BufferedOutputStream(
 		        new FileOutputStream("C:/Users/Administrator/Documents/csse376/BEERJava/BEERGame/objects.bin")));
-		objectOut.writeObject(l.englishGame);
+		objectOut.writeObject(l.getGame());
 		ObjectInputStream objectIn = null;
 		Game game2 = null;
 		objectIn = new ObjectInputStream(new BufferedInputStream(new FileInputStream(
@@ -89,43 +76,76 @@ public class Launcher {
 		game2 = (Game) objectIn.readObject();
 		objectIn.close();
 		InventoryPanel invPanel = new InventoryPanel(game2);
-		l.gamePanel = new GamePanel(game2, invPanel);
+		l.gamePanel = new GamePanel(l.getGame(), invPanel);
 		JFrame frame = new JFrame();
-		JMenuBar bar = new JMenuBar();
+		GameBar bar = new GameBar(frame, l);
+	
 		frame.setJMenuBar(bar);
-		JMenu languageMenu = new JMenu("Language");
-		JMenuItem french = new JMenuItem("French");
-		french.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				System.out.println("french");
-				//Launcher.this.changeLanguage();
-				//no enclosing type error
-			}
-
-		});
-		languageMenu.add(french);
-		JMenuItem english = new JMenuItem("English");
-		english.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				System.out.println("english");
-			}
-
-		});
-		languageMenu.add(english);
-		bar.add(languageMenu);
-		
+//		JMenu languageMenu = new JMenu("Language");
+//		JMenuItem french = new JMenuItem("French");
+//		french.addActionListener(new ActionListener() {
+//
+//			@Override
+//			public void actionPerformed(ActionEvent arg0) {
+//				System.out.println("french");
+//				//Launcher.this.changeLanguage();
+//				//no enclosing type error
+//			}
+//
+//		});
+//		languageMenu.add(french);
+//		JMenuItem english = new JMenuItem("English");
+//		english.addActionListener(new ActionListener() {
+//
+//			@Override
+//			public void actionPerformed(ActionEvent arg0) {
+//				System.out.println("english");
+//			}
+//
+//		});
+//		languageMenu.add(english);
+//		bar.add(languageMenu);
+//		
 		frame.setLayout(new FlowLayout());
 		frame.add(l.gamePanel);
 		frame.add(invPanel);
 		frame.pack();
 		frame.setVisible(true);
 	}
-	
 
+	public static class GameBar extends JMenuBar {
+		public Launcher l;
+		public GameBar (JFrame frame, Launcher launch) {
+			frame = frame;
+			l = launch;
+			JMenu languageMenu = new JMenu("Language");
+			JMenuItem french = new JMenuItem("French");
+			french.addActionListener(new ActionListener() {
+
+				@Override
+				public void actionPerformed(ActionEvent arg0) {
+					System.out.println("french");
+					GameBar.this.l.getGame().changeLanguage();
+					GameBar.this.l.gamePanel.repaint();
+				}
+
+			});
+			languageMenu.add(french);
+			JMenuItem english = new JMenuItem("English");
+			english.addActionListener(new ActionListener() {
+
+				@Override
+				public void actionPerformed(ActionEvent arg0) {
+					System.out.println("english");
+					GameBar.this.l.getGame().changeLanguage();
+					GameBar.this.l.gamePanel.repaint();
+				}
+
+			});
+			languageMenu.add(english);
+			this.add(languageMenu);
+		}
+	}
 
 
 }

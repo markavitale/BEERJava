@@ -11,6 +11,7 @@ public class Game implements Serializable {
 	View currentView;
 	boolean isMuted;
 	boolean isPaused;
+	String language;
 	
 	/**
 	 * @param p - the player who is playing the game.
@@ -19,12 +20,21 @@ public class Game implements Serializable {
 	 * The constructor for making a new game instance.
 	 */
 	public Game(Player p, View v){
+		language = "english";
 		currentPlayer = p;
 		currentView = v;
 		isMuted = false;
 		isPaused = false;
 	}
 	
+	public void changeLanguage() {
+		if (this.language == "english") {
+			this.language = "french";
+		}
+		else {
+			this.language = "english";
+		}
+	}
 	/**
 	 * @return the current view
 	 */
@@ -32,6 +42,9 @@ public class Game implements Serializable {
 		return this.currentView;
 	}
 	
+	public String getLanguage() {
+		return this.language;
+	}
 	/**
 	 * @return the current player
 	 */

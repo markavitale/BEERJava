@@ -10,6 +10,7 @@ public class View implements Serializable{
 	ImageIcon background;
 	ArrayList<View> possibleMoves;
 	ArrayList<Region> clickableRegions;
+	View frenchAlternate;
 	
 	public View(String cDescription, ImageIcon cBackground){
 		description = cDescription;
@@ -18,10 +19,20 @@ public class View implements Serializable{
 		clickableRegions = new ArrayList<Region>();
 	}
 	
+	public View(String cDescription, ImageIcon cBackground, View french){
+		description = cDescription;
+		frenchAlternate = french;
+		background = cBackground;
+		possibleMoves = new ArrayList<View>();
+		clickableRegions = new ArrayList<Region>();
+	}
 	public ImageIcon getCurrentImage() {
 		return background;
 	}
 	
+	public View getFrenchAlternate() {
+		return this.frenchAlternate;
+	}
 	public String getCurrentDescription() {
 		return this.description;
 	}

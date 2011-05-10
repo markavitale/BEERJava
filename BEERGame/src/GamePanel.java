@@ -26,10 +26,17 @@ class GamePanel extends JPanel implements MouseListener {
 	}
 
 	public void paintComponent(Graphics g) {
-		
-		g.drawImage(myGame.getCurrentView().getCurrentImage().getImage(), 0, 0,
+		View v;
+		if (myGame.getLanguage() == "french") {
+			v = myGame.getCurrentView().getFrenchAlternate();
+			System.out.println("here");
+		}
+		else {
+			v = myGame.getCurrentView();
+		}
+		g.drawImage(v.getCurrentImage().getImage(), 0, 0,
 				null);
-		ArrayList<Region> regionList = myGame.getCurrentView().getRegions();
+		ArrayList<Region> regionList = v.getRegions();
 		for (int i = 0; i < regionList.size(); i++) {
 			g.drawRect(regionList.get(i).getX(), regionList.get(i).getY(),
 					regionList.get(i).getWidth(), regionList.get(i).getHeight());
