@@ -1,33 +1,19 @@
-import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.Graphics;
-import java.awt.Image;
-import java.awt.Point;
-
-import javax.swing.ImageIcon;
-import javax.swing.JFrame;
-import javax.swing.JMenuBar;
-import javax.swing.JPanel;
-import javax.swing.JMenu;
-import javax.swing.JMenuItem;
-
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.util.ArrayList;
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.io.Serializable;
+
+import javax.swing.ImageIcon;
+import javax.swing.JFrame;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 /**
  * @author vitalema
  *
@@ -62,6 +48,7 @@ public class Launcher {
 		v1.addRegion(taserRegion);
 		v1.addView(v2);
 		this.game = new Game(p, v1);
+		
 
 	}
 	/**
@@ -76,8 +63,7 @@ public class Launcher {
 	public void writeGame(Launcher l) throws Exception {
 		ObjectOutputStream objectOut = new ObjectOutputStream(
 				new BufferedOutputStream(
-		        new FileOutputStream("C:/Users/Administrator/Documents/" +
-		        		"csse376/BEERJava/BEERGame/objects.bin")));
+		        new FileOutputStream("objects.bin")));
 		objectOut.writeObject(l.getGame());
 		objectOut.close();
 	}
@@ -85,8 +71,7 @@ public class Launcher {
 		ObjectInputStream objectIn = null;
 		
 		objectIn = new ObjectInputStream(new BufferedInputStream(
-				new FileInputStream("C:/Users/Administrator/" +
-						"Documents/csse376/BEERJava/BEERGame/objects.bin")));
+				new FileInputStream("objects.bin")));
 		
 		return  (Game) objectIn.readObject();
 		
@@ -104,38 +89,15 @@ public class Launcher {
 		
 		
 		l.setGame(l.readGame());
-		
+		String response = JOptionPane.showInputDialog(null, "What is your name?",
+				  "Enter your name", JOptionPane.QUESTION_MESSAGE);
+		l.getGame().getCurrentPlayer().setPlayerName(response);
 		InventoryPanel invPanel = new InventoryPanel(l.getGame());
 		l.gamePanel = new GamePanel(l.getGame(), invPanel);
 		JFrame frame = new JFrame();
 		GameBar bar = new GameBar(frame, l);
-	
+		frame.setTitle(response +"'s Game");
 		frame.setJMenuBar(bar);
-//		JMenu languageMenu = new JMenu("Language");
-//		JMenuItem french = new JMenuItem("French");
-//		french.addActionListener(new ActionListener() {
-//
-//			@Override
-//			public void actionPerformed(ActionEvent arg0) {
-//				System.out.println("french");
-//				//Launcher.this.changeLanguage();
-//				//no enclosing type error
-//			}
-//
-//		});
-//		languageMenu.add(french);
-//		JMenuItem english = new JMenuItem("English");
-//		english.addActionListener(new ActionListener() {
-//
-//			@Override
-//			public void actionPerformed(ActionEvent arg0) {
-//				System.out.println("english");
-//			}
-//
-//		});
-//		languageMenu.add(english);
-//		bar.add(languageMenu);
-//		
 		frame.setLayout(new FlowLayout());
 		frame.add(l.gamePanel);
 		frame.add(invPanel);

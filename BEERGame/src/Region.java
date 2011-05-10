@@ -70,6 +70,16 @@ public class Region implements Serializable {
 	
 	}
 	
+	public Region(int newX,int newY, int w, int h, View view){
+		v = view;
+		x = newX;
+		y = newY;
+		width = w;
+		height = h;
+	
+	
+	}
+	
 	Item getItem() {
 		return itemToPickUp;
 	}

@@ -22,6 +22,10 @@ public class Player implements Serializable{
 		return name;
 	}
 	
+	public void setPlayerName(String pName) {
+		this.name = pName;
+	}
+	
 	void increaseClickCount(){
 		clickCount++;
 	}
