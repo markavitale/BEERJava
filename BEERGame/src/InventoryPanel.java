@@ -26,7 +26,7 @@ public class InventoryPanel extends JPanel implements MouseListener {
 		setPreferredSize(size);
 		Item dynamiteItem = new Item("dynamite", "this dynamite can be used to blow things up, be careful!",
 				new ImageIcon("images/dynamite.jpg"), new Region(15,225,70,70),
-				"matches description in french");
+				"dynamite description in french");
 			Item matchesItem = new Item("matches", "these matches can be used to light things on fire",
 					new ImageIcon("images/matches.jpg"), new Region(15,150, 70, 70), 
 					"matches description in french");
