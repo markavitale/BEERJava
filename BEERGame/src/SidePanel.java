@@ -39,7 +39,7 @@ public class SidePanel extends JPanel {
 		textAreaBottom.setWrapStyleWord(true);
 		bottom.add(textAreaBottom);
 		top.setPreferredSize(new Dimension(100, 100));
-		middle.setPreferredSize(new Dimension(100, 350));
+		middle.setPreferredSize(new Dimension(100, 400));
 		bottom.setPreferredSize(new Dimension(100, 100));
 		setPreferredSize(new Dimension(100, 600));
 		this.setLayout(new FlowLayout());
