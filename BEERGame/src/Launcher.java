@@ -14,6 +14,7 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
+import javax.swing.JTextArea;
 /**
  * @author vitalema
  *
@@ -88,7 +89,7 @@ public class Launcher {
 	 */
 	public static void main(String[] args) throws Exception {
 		Launcher l = new Launcher();
-	//	l.writeGame(l);
+		l.writeGame(l);
 		
 		
 		
@@ -96,15 +97,18 @@ public class Launcher {
 		String response = JOptionPane.showInputDialog(null, "What is your name?",
 				  "Enter your name", JOptionPane.QUESTION_MESSAGE);
 		l.getGame().getCurrentPlayer().setPlayerName(response);
-		InventoryPanel invPanel = new InventoryPanel(l.getGame());
-		l.gamePanel = new GamePanel(l.getGame(), invPanel);
+		SidePanel sidePanel = new SidePanel(l);
+		l.gamePanel = new GamePanel(l, sidePanel);
 		JFrame frame = new JFrame();
+	
+	
 		GameBar bar = new GameBar(frame, l);
 		frame.setTitle(response +"'s Game");
 		frame.setJMenuBar(bar);
 		frame.setLayout(new FlowLayout());
 		frame.add(l.gamePanel);
-		frame.add(invPanel);
+		frame.add(sidePanel);
+
 		frame.pack();
 		frame.setVisible(true);
 	}

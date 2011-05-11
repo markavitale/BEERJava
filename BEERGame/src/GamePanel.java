@@ -15,18 +15,23 @@ class GamePanel extends JPanel implements MouseListener, MouseMotionListener {
 	private Game myGame;
 	private InventoryPanel invPanel;
 	private boolean mouseIsInsideRegion;
-
-	public GamePanel(Game g, InventoryPanel inventoryPanel) {
-		mouseIsInsideRegion = false;
+	private SidePanel sidePanel;
+	public GamePanel(Launcher l, SidePanel sidePane) {
 		this.addMouseListener(this);
 		this.addMouseMotionListener(this);
-		this.invPanel = inventoryPanel;
-		this.myGame = g;
-		this.img = g.getCurrentView().getCurrentImage().getImage();
+		this.sidePanel = sidePane;
+		invPanel = sidePanel.getInvPanel();
+		mouseIsInsideRegion = false;
+		this.myGame = l.getGame();
+		this.img = myGame.getCurrentView().getCurrentImage().getImage();
 		Dimension size = new Dimension(img.getWidth(null), img.getHeight(null));
 		setPreferredSize(size);
 		setLayout(new FlowLayout());
 
+	}
+	
+	public SidePanel getSidePanel() {
+		return this.sidePanel;
 	}
 
 	public void paintComponent(Graphics g) {
@@ -49,7 +54,6 @@ class GamePanel extends JPanel implements MouseListener, MouseMotionListener {
 	}
 
 	public void checkRegion(int x, int y) {
-		System.out.println(myGame.getCurrentView().getRegions().get(0));
 		Region currentRegion = myGame.getCurrentView().getRegions().get(0);
 		if (currentRegion.isInsideRegion(x, y)) {
 			if (currentRegion.hasItem()) {
@@ -57,6 +61,7 @@ class GamePanel extends JPanel implements MouseListener, MouseMotionListener {
 						.contains(currentRegion.getItem())) {
 					myGame.changeView(currentRegion.getView());
 					mouseIsInsideRegion = false;
+					sidePanel.updateText();
 					this.myGame.getCurrentPlayer().addItem(
 							currentRegion.getItem());
 					this.invPanel.updateInventory();
@@ -64,6 +69,7 @@ class GamePanel extends JPanel implements MouseListener, MouseMotionListener {
 				}
 			} else {
 				myGame.changeView(currentRegion.getView());
+				sidePanel.updateText();
 				mouseIsInsideRegion = false;
 				this.repaint();
 			}

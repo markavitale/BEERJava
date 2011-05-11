@@ -20,7 +20,7 @@ public class InventoryPanel extends JPanel implements MouseListener {
 	public InventoryPanel( Game g) {
 		this.addMouseListener(this);
 		this.myGame = g;
-		Dimension size = new Dimension(100,400);
+		Dimension size = new Dimension(100,300);
 		setPreferredSize(size);
 	}
 	

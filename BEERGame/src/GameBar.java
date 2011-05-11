@@ -21,6 +21,7 @@ import javax.swing.JMenuItem;
 				public void actionPerformed(ActionEvent arg0) {
 					GameBar.this.l.getGame().setLanguage("french");
 					GameBar.this.l.getGamePanel().repaint();
+					GameBar.this.l.getGamePanel().getSidePanel().updateText();
 				}
 
 			});
@@ -32,6 +33,7 @@ import javax.swing.JMenuItem;
 				public void actionPerformed(ActionEvent arg0) {
 					GameBar.this.l.getGame().setLanguage("english");
 					GameBar.this.l.getGamePanel().repaint();
+					GameBar.this.l.getGamePanel().getSidePanel().updateText();
 				}
 
 			});
