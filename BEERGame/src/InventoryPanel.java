@@ -22,6 +22,18 @@ public class InventoryPanel extends JPanel implements MouseListener {
 		this.myGame = g;
 		Dimension size = new Dimension(100,300);
 		setPreferredSize(size);
+//		Item dynamiteItem = new Item("dynamite", "this dynamite can be used to blow things up, be careful!",
+//				new ImageIcon("images/dynamite.jpg"), new Region(15,225,70,70),
+//				"matches description in french");
+//			Item matchesItem = new Item("matches", "these matches can be used to light things on fire",
+//					new ImageIcon("images/matches.jpg"), new Region(15,150, 70, 70), 
+//					"matches description in french");
+//			Item keysItem = new Item("keys", "these keys unlock security deposity boxes", 
+//				new ImageIcon("images/keys.jpg"), new Region(15,75,70,70),
+//				"taser description in french");
+//			myGame.getCurrentPlayer().addItem(dynamiteItem);
+//			myGame.getCurrentPlayer().addItem(matchesItem);
+//			myGame.getCurrentPlayer().addItem(keysItem);
 	}
 	
 	@Override
@@ -29,9 +41,11 @@ public class InventoryPanel extends JPanel implements MouseListener {
 		Graphics2D g2 = (Graphics2D) g;
 		g2.setColor(Color.WHITE);
 		g2.fillRect(0,0,100,400);
-
-		for (int i = 0; i <myGame.getCurrentPlayer().getInventory().size(); i ++) {
-			g2.drawImage(myGame.getCurrentPlayer().getInventory().get(i).getItemImage().getImage(),0,0,null);
+		ArrayList<Item> inv = myGame.getCurrentPlayer().getInventory();
+		for (int i = 0; i <inv.size(); i ++) {
+			g2.drawImage(inv.get(i).getItemImage().getImage(),
+					inv.get(i).getRegion().getX(),
+					inv.get(i).getRegion().getY(),null);
 		}
 		g2.setColor(Color.RED);
 		g2.setStroke(new BasicStroke(5));

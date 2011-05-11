@@ -29,13 +29,23 @@ public class Launcher {
 	 * on creation of a Launcher object, the game is created and initialized
 	 */
 	public Launcher() {
+		Item dynamiteItem = new Item("dynamite", "this dynamite can be used to blow things up, be careful!",
+			new ImageIcon("images/dynamite.jpg"), new Region(15,215,70,70),
+			"matches description in french");
+		Item matchesItem = new Item("matches", "these matches can be used to light things on fire",
+				new ImageIcon("images/matches.jpg"), new Region(15,145, 70, 70), 
+				"matches description in french");
+		Item keysItem = new Item("keys", "these keys unlock security deposity boxes", 
+			new ImageIcon("images/keys.jpg"), new Region(15,75,70,70),
+			"taser description in french");
+		
 		
 		Region badGuyRegion = new Region(435,111,200,300);
 		View noTaser = new View("taser is gone", 
 			new ImageIcon("images/noTaser.jpg"), "taser is gone french",
 			new ImageIcon("images/noTaserFrench.jpg"), badGuyRegion);
 		Item taserItem = new Item("taser", "this taser hurts bad guys",new 
-			ImageIcon("images/taser.jpg"), new Region(0,0,32,60), 
+			ImageIcon("images/taser.jpg"), new Region(15,0,70,70), 
 			"taser description in french");
 		Region taserRegion =new Region(32, 495, 60, 90, taserItem, noTaser);
 		View main = new View("opening view in english", 
