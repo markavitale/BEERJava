@@ -1,3 +1,4 @@
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Graphics;
@@ -46,6 +47,7 @@ class GamePanel extends JPanel implements MouseListener, MouseMotionListener {
 		if (mouseIsInsideRegion == true) {
 			ArrayList<Region> regionList = v.getRegions();
 			for (int i = 0; i < regionList.size(); i++) {
+				g.setColor(Color.RED);
 				g.drawRect(regionList.get(i).getX(), regionList.get(i).getY(),
 						regionList.get(i).getWidth(), regionList.get(i)
 								.getHeight());

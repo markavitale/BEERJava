@@ -37,7 +37,7 @@ public class SidePanel extends JPanel {
 		add(top);
 		add(middle);
 		add(bottom);
-		//this.setBackground(Color.WHITE);
+	
 	}
 	
 	public InventoryPanel getInvPanel() {
