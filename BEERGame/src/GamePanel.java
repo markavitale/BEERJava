@@ -64,7 +64,7 @@ class GamePanel extends JPanel implements MouseListener, MouseMotionListener {
 					sidePanel.updateText();
 					this.myGame.getCurrentPlayer().addItem(
 							currentRegion.getItem());
-					this.invPanel.updateInventory();
+					this.invPanel.repaint();
 					this.repaint();
 				}
 			} else {

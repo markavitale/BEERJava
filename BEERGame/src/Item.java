@@ -61,6 +61,10 @@ public class Item implements Serializable {
 	String getDescription() {
 		return description;
 	}
+	
+	String getFrenchDescription() {
+		return frenchDescription;
+	}
 
 	boolean canInteractWithItem(Item i) {
 		return interactableItems.contains(i);

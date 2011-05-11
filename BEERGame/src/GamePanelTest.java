@@ -18,8 +18,9 @@ public class GamePanelTest {
 		this.l = new Launcher();
 		v = l.getGame().getCurrentView();
 		v2 = v.getViews().get(0);
-		InventoryPanel invPanel = new InventoryPanel(l.getGame());
+		
 		SidePanel p = new SidePanel(l);
+		InventoryPanel invPanel = new InventoryPanel(l.getGame(), p);
 		panel = new GamePanel(l,p);
 	}
 	

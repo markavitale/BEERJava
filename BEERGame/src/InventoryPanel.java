@@ -16,24 +16,26 @@ public class InventoryPanel extends JPanel implements MouseListener {
 
 
 	private Game myGame;
-	Region outline;
-	public InventoryPanel( Game g) {
+	Item selected;
+	SidePanel sidePanel;
+	public InventoryPanel( Game g, SidePanel side) {
 		this.addMouseListener(this);
+		sidePanel = side;
 		this.myGame = g;
 		Dimension size = new Dimension(100,300);
 		setPreferredSize(size);
-//		Item dynamiteItem = new Item("dynamite", "this dynamite can be used to blow things up, be careful!",
-//				new ImageIcon("images/dynamite.jpg"), new Region(15,225,70,70),
-//				"matches description in french");
-//			Item matchesItem = new Item("matches", "these matches can be used to light things on fire",
-//					new ImageIcon("images/matches.jpg"), new Region(15,150, 70, 70), 
-//					"matches description in french");
-//			Item keysItem = new Item("keys", "these keys unlock security deposity boxes", 
-//				new ImageIcon("images/keys.jpg"), new Region(15,75,70,70),
-//				"taser description in french");
-//			myGame.getCurrentPlayer().addItem(dynamiteItem);
-//			myGame.getCurrentPlayer().addItem(matchesItem);
-//			myGame.getCurrentPlayer().addItem(keysItem);
+		Item dynamiteItem = new Item("dynamite", "this dynamite can be used to blow things up, be careful!",
+				new ImageIcon("images/dynamite.jpg"), new Region(15,225,70,70),
+				"matches description in french");
+			Item matchesItem = new Item("matches", "these matches can be used to light things on fire",
+					new ImageIcon("images/matches.jpg"), new Region(15,150, 70, 70), 
+					"matches description in french");
+			Item keysItem = new Item("keys", "these keys unlock security deposity boxes", 
+				new ImageIcon("images/keys.jpg"), new Region(15,75,70,70),
+				"taser description in french");
+			myGame.getCurrentPlayer().addItem(dynamiteItem);
+			myGame.getCurrentPlayer().addItem(matchesItem);
+			myGame.getCurrentPlayer().addItem(keysItem);
 	}
 	
 	@Override
@@ -49,30 +51,33 @@ public class InventoryPanel extends JPanel implements MouseListener {
 		}
 		g2.setColor(Color.RED);
 		g2.setStroke(new BasicStroke(5));
-		if (outline!= null) {
-		g.drawRect(outline.getX(),outline.getY(), outline.getWidth(), outline.getHeight());
+		if (selected!= null) {
+		g.drawRect(selected.getRegion().getX(),selected.getRegion().getY(),
+				selected.getRegion().getWidth(), selected.getRegion().getHeight());
 		}
 	}
 	@Override
 	public void mouseClicked(MouseEvent arg0) {
 		checkImageClick(arg0);
 		this.repaint();
-		updateInventory();
+		sidePanel.updateText();
 		
+		
+	}
+	public Item returnSelected() {
+		return this.selected;
 	}
 	
 	public void checkImageClick(MouseEvent arg0) {
 		for (int i = 0; i <myGame.getCurrentPlayer().getInventory().size(); i ++) {
 			if (myGame.getCurrentPlayer().getInventory().get(i).getRegion()
 					.isInsideRegion(arg0.getX(), arg0.getY())) {
-				this.outline = myGame.getCurrentPlayer().getInventory().get(i).getRegion();
+				this.selected = myGame.getCurrentPlayer().getInventory().get(i);
 			}
 		}
 
 	}
-	void updateInventory() {
-		this.repaint();
-	}
+
 	@Override
 	public void mouseEntered(MouseEvent arg0) {
 		// TODO Auto-generated method stub
