@@ -14,6 +14,7 @@ public class Region implements Serializable {
 	int height;
 	Item itemToPickUp;
 	View v;
+	Item itemRequiredToInteract;
 	
 	/**
 	 * @param newX - x coordinate of top left point in the rectangle
@@ -60,6 +61,16 @@ public class Region implements Serializable {
 	 * this allows an item to be interacted with in a way that will change the
 	 * current view to the provided view.
 	 */
+	public Region(int newX,int newY, int w, int h, View view, Item interact){
+		v = view;
+		x = newX;
+		y = newY;
+		width = w;
+		height = h;
+		this.itemRequiredToInteract = interact;
+	
+	}
+	
 	public Region(int newX,int newY, int w, int h, Item item, View view){
 		v = view;
 		x = newX;
@@ -67,6 +78,7 @@ public class Region implements Serializable {
 		width = w;
 		height = h;
 		itemToPickUp = item;
+	
 	
 	}
 	
@@ -83,6 +95,10 @@ public class Region implements Serializable {
 	Item getItem() {
 		return itemToPickUp;
 	}
+	
+	Item getRequiredItem() {
+		return itemRequiredToInteract;
+	}
 	View getView() {
 		return v;
 	}
@@ -90,6 +106,12 @@ public class Region implements Serializable {
 	
 	boolean hasItem() {
 		if (itemToPickUp == null) {
+			return false;
+		}
+		return true;
+	}
+	boolean hasRequiredItem() {
+		if (itemRequiredToInteract == null) {
 			return false;
 		}
 		return true;

@@ -38,15 +38,20 @@ public class Launcher {
 		Item keysItem = new Item("keys", "these keys unlock security deposity boxes", 
 			new ImageIcon("images/keys.jpg"), new Region(15,75,70,70),
 			"taser description in french");
+		Item taserItem = new Item("taser", "this taser hurts bad guys",new 
+				ImageIcon("images/taser.jpg"), new Region(15,0,70,70), 
+				"taser description in french");
 		
-		
-		Region badGuyRegion = new Region(435,111,200,300);
+		Region keyRegion = new Region(520,520,85,60);
+		View robberDown = new View("the robber is unconscious", 
+				new ImageIcon("images/robberdown.jpg"),
+				"the robber is unconscious in french", 
+				new ImageIcon("images/robberDown.jpg"), keyRegion);
+		Region badGuyRegion = new Region(435,111,200,300, robberDown, taserItem);
 		View noTaser = new View("taser is gone", 
 			new ImageIcon("images/noTaser.jpg"), "taser is gone french",
 			new ImageIcon("images/noTaserFrench.jpg"), badGuyRegion);
-		Item taserItem = new Item("taser", "this taser hurts bad guys",new 
-			ImageIcon("images/taser.jpg"), new Region(15,0,70,70), 
-			"taser description in french");
+		
 		Region taserRegion =new Region(32, 495, 60, 90, taserItem, noTaser);
 		View main = new View("opening view in english", 
 				new ImageIcon("images/main.jpg"), "opening view in french",

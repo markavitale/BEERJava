@@ -68,10 +68,21 @@ class GamePanel extends JPanel implements MouseListener, MouseMotionListener {
 					this.repaint();
 				}
 			} else {
+				if (currentRegion.hasRequiredItem()) {
+					if (currentRegion.getRequiredItem() == invPanel.selected) {
 				myGame.changeView(currentRegion.getView());
 				sidePanel.updateText();
 				mouseIsInsideRegion = false;
 				this.repaint();
+				} else{
+					//do nothing
+				}
+				}else {
+					myGame.changeView(currentRegion.getView());
+					sidePanel.updateText();
+					mouseIsInsideRegion = false;
+					this.repaint();
+				}
 			}
 		}
 	}
