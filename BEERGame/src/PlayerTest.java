@@ -20,8 +20,8 @@ public class PlayerTest {
 	public void setUp() throws Exception {
 		s = "Tyler";
 		newPlayer = new Player(s);
-		item = new Item("item", "this is an item");
-		item2 = new Item("item 2", "this is another item");	
+		item = new Item("item", "this is an item", "french item description");
+		item2 = new Item("item 2", "this is another item", "french item description");	
 		
 	}
 

@@ -11,6 +11,7 @@ public class Item implements Serializable {
 
 	String name;
 	String description;
+	String frenchDescription;
 	ArrayList<Item> interactableItems;
 	ImageIcon itemImage;
 	Region r;
@@ -21,10 +22,11 @@ public class Item implements Serializable {
 	 * 
 	 * This is the constructor to the item class, 
 	 */
-	public Item(String cName, String cDescription) {
+	public Item(String cName, String cDescription, String fDescription) {
 		name = cName;
 		description = cDescription;
 		interactableItems = new ArrayList<Item>();
+		frenchDescription = fDescription;
 	}
 
 	/**
@@ -36,8 +38,9 @@ public class Item implements Serializable {
 	 * This constructor also takes an image for display in the inventory.
 	 */
 	public Item(String cName, String cDescription, ImageIcon img,
-			Region itemRegion) {
+			Region itemRegion, String fDescription) {
 		r = itemRegion;
+		frenchDescription = fDescription;
 		itemImage = img;
 		name = cName;
 		description = cDescription;

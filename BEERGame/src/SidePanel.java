@@ -48,8 +48,8 @@ public class SidePanel extends JPanel {
 		if (l.getGame().getLanguage() == "english") {
 		textAreaViews.setText(l.getGame().getCurrentView().getCurrentDescription());
 		} else {
-			if (l.getGame().getCurrentView().getFrenchAlternate()!= null) {
-			textAreaViews.setText(l.getGame().getCurrentView().getFrenchAlternate().getCurrentDescription());
+			if (l.getGame().getCurrentView().getFrenchImage()!= null) {
+			textAreaViews.setText(l.getGame().getCurrentView().getFrenchDescription());
 		}
 		}
 

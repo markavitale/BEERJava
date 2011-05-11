@@ -12,11 +12,13 @@ import javax.swing.ImageIcon;
  */
 public class View implements Serializable{
 	String description;
+	String frenchDescription;
 	ImageIcon background;
+	ImageIcon frenchBackground;
 	ArrayList<View> possibleMoves;
 	ArrayList<Region> clickableRegions;
-	View frenchAlternate;
 	
+
 	/**
 	 * @param cDescription - description of this view
 	 * @param cBackground - the background image for this view
@@ -31,12 +33,14 @@ public class View implements Serializable{
 		clickableRegions = new ArrayList<Region>();
 	}
 	
-	public View(String cDescription, ImageIcon cBackground, View french){
+	public View(String cDescription, ImageIcon cBackground, String fDescription, ImageIcon frenchBack, Region r){
 		description = cDescription;
-		frenchAlternate = french;
+		frenchBackground = frenchBack;
+		frenchDescription = fDescription;
 		background = cBackground;
 		possibleMoves = new ArrayList<View>();
 		clickableRegions = new ArrayList<Region>();
+		clickableRegions.add(r);
 	}
 	/**
 	 * @param cDescription - description of this view
@@ -45,14 +49,7 @@ public class View implements Serializable{
 	 * 
 	 * this returns the French version of this view.
 	 */
-	public View(String cDescription, ImageIcon cBackground, View french, Region r){
-		description = cDescription;
-		frenchAlternate = french;
-		background = cBackground;
-		possibleMoves = new ArrayList<View>();
-		clickableRegions = new ArrayList<Region>();
-		clickableRegions.add(r);
-	}
+
 	
 	public View(String cDescription, ImageIcon cBackground, Region r){
 		description = cDescription;
@@ -71,8 +68,12 @@ public class View implements Serializable{
 	/**
 	 * @return the alternate view in French
 	 */
-	public View getFrenchAlternate() {
-		return this.frenchAlternate;
+	public ImageIcon getFrenchImage() {
+		return this.frenchBackground;
+	}
+	
+	public String getFrenchDescription() {
+		return this.frenchDescription;
 	}
 	/**
 	 * @return the description of this view

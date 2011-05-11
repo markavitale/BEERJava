@@ -31,21 +31,20 @@ public class Launcher {
 	public Launcher() {
 		
 		Region badGuyRegion = new Region(435,111,200,300);
-		View noTaserFrench = new View("taser is gone french", new ImageIcon("images/noTaserFrench.jpg"),badGuyRegion);
 		View noTaser = new View("taser is gone", 
-			new ImageIcon("images/noTaser.jpg"), noTaserFrench, badGuyRegion);
+			new ImageIcon("images/noTaser.jpg"), "taser is gone french",
+			new ImageIcon("images/noTaserFrench.jpg"), badGuyRegion);
 		Item taserItem = new Item("taser", "this taser hurts bad guys",new 
-			ImageIcon("images/taser.jpg"), new Region(0,0,32,60));
+			ImageIcon("images/taser.jpg"), new Region(0,0,32,60), 
+			"taser description in french");
 		Region taserRegion =new Region(32, 495, 60, 90, taserItem, noTaser);
-		View mainFrench = new View("opening view in french",
-				new ImageIcon("images/mainfrench.jpg"), taserRegion);
 		View main = new View("opening view in english", 
-				new ImageIcon("images/main.jpg"), mainFrench, taserRegion);
+				new ImageIcon("images/main.jpg"), "opening view in french",
+				new ImageIcon("images/mainfrench.jpg"), taserRegion);
 		Region homeRegion = new Region(0,0,800,600, main);
-		View homeFrench = new View("home view in french", 
-				new ImageIcon("images/homeFrench.jpg"), homeRegion);
 		View home = new View("home view in english",
-				new ImageIcon("images/homeEnglish.jpg"), homeFrench, homeRegion);
+				new ImageIcon("images/homeEnglish.jpg"), "home view in french",
+				new ImageIcon("images/homeFrench.jpg"), homeRegion);
 		
 		
 		Player p = new Player("Tyler");

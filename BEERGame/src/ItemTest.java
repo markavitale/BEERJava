@@ -11,10 +11,10 @@ public class ItemTest {
 
 	@Before
 	public void setUp() throws Exception {
-		i1 = new Item("taser", "This is a taser");
-		i2 = new Item("keys", "These keys unlock things");
-		i3 = new Item("moneybag", "This bag contains money");
-		i4 = new Item("rock", "This is a rock");
+		i1 = new Item("taser", "This is a taser", "french item description");
+		i2 = new Item("keys", "These keys unlock things", "french item description");
+		i3 = new Item("moneybag", "This bag contains money", "french item description");
+		i4 = new Item("rock", "This is a rock", "french item description");
 		
 		i1.addInteractableItem(i2);
 		i1.addInteractableItem(i3);
@@ -64,7 +64,7 @@ public class ItemTest {
 	@Test
 	public void testLongDescription() {
 		String s = "This is an example of a really really long description. Our descriptions will be shorter than this so this is a good way to test they will all work!";
-		Item newItem = new Item("random Name", s);
+		Item newItem = new Item("random Name", s, "french item description");
 		assertEquals(s, newItem.getDescription());
 	}
 
