@@ -38,7 +38,11 @@ public class Player implements Serializable {
 	void addItem(Item i) {
 		inventory.add(i);
 	}
-
+	
+	void removeItem(Item i) {
+		if (inventory.contains(i)) {
+			inventory.remove(i);}
+	}
 	ArrayList<Item> getInventory() {
 		return this.inventory;
 	}

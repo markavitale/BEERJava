@@ -41,7 +41,7 @@ public class SidePanel extends JPanel {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				
+				SidePanel.this.invPanel.setCombineItemTrue();
 				
 			}});
 

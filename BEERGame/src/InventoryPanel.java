@@ -17,14 +17,20 @@ public class InventoryPanel extends JPanel implements MouseListener {
 	private Game myGame;
 	Item selected;
 	SidePanel sidePanel;
+	boolean combineItem;
 
 	public InventoryPanel(Game g, SidePanel side) {
 		this.addMouseListener(this);
 		sidePanel = side;
 		this.myGame = g;
 		Dimension size = new Dimension(100, 400);
+		combineItem = true;
+		combineItem = false;
 		setPreferredSize(size);
 
+		Item taserItem = new Item("taser", "this taser hurts bad guys",
+				new ImageIcon("images/taser.jpg"), new Region(15, 0, 70, 70),
+				"taser description in french");
 		Item dynamiteItem = new Item(
 				"dynamite",
 				"this dynamite could be used to blow things up, but its missing something",
@@ -42,12 +48,20 @@ public class InventoryPanel extends JPanel implements MouseListener {
 				"these keys unlock security deposity boxes", new ImageIcon(
 						"images/keys.jpg"), new Region(15, 75, 70, 70),
 				"taser description in french");
-		myGame.getCurrentPlayer().addItem(dynamiteItem);
-		myGame.getCurrentPlayer().addItem(stringItem);
-		myGame.getCurrentPlayer().addItem(matchesItem);
+		myGame.getCurrentPlayer().addItem(taserItem);
 		myGame.getCurrentPlayer().addItem(keysItem);
+		myGame.getCurrentPlayer().addItem(matchesItem);
+		myGame.getCurrentPlayer().addItem(stringItem);
+		myGame.getCurrentPlayer().addItem(dynamiteItem);
 	}
 
+	public void setCombineItemTrue() {
+		combineItem = true;
+	}
+	
+	public void setCombineItemFalse() {
+		combineItem = false;
+	}
 	@Override
 	public void paintComponent(Graphics g) {
 		Graphics2D g2 = (Graphics2D) g;
@@ -65,10 +79,12 @@ public class InventoryPanel extends JPanel implements MouseListener {
 					selected.getRegion().getY(), selected.getRegion()
 							.getWidth(), selected.getRegion().getHeight());
 		}
-	}
+	
+		}
 
 	@Override
 	public void mouseClicked(MouseEvent arg0) {
+		checkCombineClick(arg0.getPoint());
 		checkImageClick(arg0.getPoint());
 		this.repaint();
 		sidePanel.updateText();
@@ -81,6 +97,38 @@ public class InventoryPanel extends JPanel implements MouseListener {
 
 	public void setSelected(Item i) {
 		this.selected = i;
+	}
+	public void checkCombineClick(Point p) {
+		if (combineItem && (myGame.getCurrentPlayer().getInventory().size() == 5)) {
+			Item dynamiteWithStringItem = new Item("dynamitewithstring", "dynamite with string",
+					new ImageIcon("images/stringanddynamite.jpg"), new Region(15, 225, 70, 70),
+					"dynamite with string in french");
+			if (selected.getName() == "dynamite" ) {
+				if (myGame.getCurrentPlayer().getInventory().get(3).getRegion().isInsideRegion((int) p.getX(),(int)p.getY())) {
+					System.out.println("combining!");
+					myGame.getCurrentPlayer().removeItem(myGame.getCurrentPlayer().getInventory().get(3));
+					myGame.getCurrentPlayer().removeItem(myGame.getCurrentPlayer().getInventory().get(3));
+					myGame.getCurrentPlayer().addItem(dynamiteWithStringItem);
+					this.setSelected(dynamiteWithStringItem);
+					System.out.println(this.returnSelected().getDescription());
+					sidePanel.updateText();
+					this.repaint();
+				
+				}
+			} else if (selected.getName() == "string" ) {
+				if (myGame.getCurrentPlayer().getInventory().get(4).getRegion().isInsideRegion((int) p.getX(),(int)p.getY())) {
+					System.out.println("combining!");
+					myGame.getCurrentPlayer().removeItem(myGame.getCurrentPlayer().getInventory().get(3));
+					myGame.getCurrentPlayer().removeItem(myGame.getCurrentPlayer().getInventory().get(3));
+					myGame.getCurrentPlayer().addItem(dynamiteWithStringItem);
+					this.setSelected(dynamiteWithStringItem);
+					System.out.println(this.returnSelected().getDescription());
+					sidePanel.updateText();
+					this.repaint();
+				}
+			}
+			
+		}
 	}
 	public void checkImageClick(Point p) {
 		for (int i = 0; i < myGame.getCurrentPlayer().getInventory().size(); i++) {

@@ -12,14 +12,17 @@ public class InventoryPanelTest {
 
 	InventoryPanel invPanel;
 	Launcher l;
+	
 	@Before
 	public void setUp() {
 		l = new Launcher();
 		SidePanel sidePanel = new SidePanel(l);
 		invPanel = new InventoryPanel(l.getGame(),sidePanel);
+	
 		Region r = new Region(0,0,50,50);
 		l.getGame().getCurrentPlayer().getInventory().get(0).setRegion(r);
 	}
+	
 	@Test
 	public void testGetSelected() {
 		assertEquals(invPanel.selected,invPanel.returnSelected());
