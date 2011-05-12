@@ -17,6 +17,7 @@ class GamePanel extends JPanel implements MouseListener, MouseMotionListener {
 	private InventoryPanel invPanel;
 	private boolean mouseIsInsideRegion;
 	private SidePanel sidePanel;
+
 	public GamePanel(Launcher l, SidePanel sidePane) {
 		this.addMouseListener(this);
 		this.addMouseMotionListener(this);
@@ -30,14 +31,15 @@ class GamePanel extends JPanel implements MouseListener, MouseMotionListener {
 		setLayout(new FlowLayout());
 
 	}
-	
+
 	public SidePanel getSidePanel() {
 		return this.sidePanel;
 	}
 
 	public void paintComponent(Graphics g) {
 		View v = myGame.getCurrentView();
-		if (myGame.getLanguage() == "french" && (myGame.getCurrentView().getFrenchImage()!= null)) {
+		if (myGame.getLanguage() == "french"
+				&& (myGame.getCurrentView().getFrenchImage() != null)) {
 			g.drawImage(v.getFrenchImage().getImage(), 0, 0, null);
 		} else {
 			g.drawImage(v.getCurrentImage().getImage(), 0, 0, null);
@@ -70,14 +72,14 @@ class GamePanel extends JPanel implements MouseListener, MouseMotionListener {
 			} else {
 				if (currentRegion.hasRequiredItem()) {
 					if (currentRegion.getRequiredItem() == invPanel.selected) {
-				myGame.changeView(currentRegion.getView());
-				sidePanel.updateText();
-				mouseIsInsideRegion = false;
-				this.repaint();
-				} else{
-					//do nothing
-				}
-				}else {
+						myGame.changeView(currentRegion.getView());
+						sidePanel.updateText();
+						mouseIsInsideRegion = false;
+						this.repaint();
+					} else {
+						// do nothing
+					}
+				} else {
 					myGame.changeView(currentRegion.getView());
 					sidePanel.updateText();
 					mouseIsInsideRegion = false;
@@ -129,7 +131,7 @@ class GamePanel extends JPanel implements MouseListener, MouseMotionListener {
 				.isInsideRegion(e.getX(), e.getY())) {
 			mouseIsInsideRegion = true;
 			this.repaint();
-		}else {
+		} else {
 			mouseIsInsideRegion = false;
 			this.repaint();
 		}

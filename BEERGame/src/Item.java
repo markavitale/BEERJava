@@ -5,7 +5,7 @@ import javax.swing.ImageIcon;
 
 /**
  * This class represents an item in the game.
- *
+ * 
  */
 public class Item implements Serializable {
 
@@ -17,10 +17,12 @@ public class Item implements Serializable {
 	Region r;
 
 	/**
-	 * @param cName - the name of the item.
-	 * @param cDescription - the description of the item.
+	 * @param cName
+	 *            - the name of the item.
+	 * @param cDescription
+	 *            - the description of the item.
 	 * 
-	 * This is the constructor to the item class, 
+	 *            This is the constructor to the item class,
 	 */
 	public Item(String cName, String cDescription, String fDescription) {
 		name = cName;
@@ -30,12 +32,17 @@ public class Item implements Serializable {
 	}
 
 	/**
-	 * @param cName - the name of the item
-	 * @param cDescription - the description of the item
-	 * @param img - an image of the item
-	 * @param itemRegion - the clickable region for this item on the screen
+	 * @param cName
+	 *            - the name of the item
+	 * @param cDescription
+	 *            - the description of the item
+	 * @param img
+	 *            - an image of the item
+	 * @param itemRegion
+	 *            - the clickable region for this item on the screen
 	 * 
-	 * This constructor also takes an image for display in the inventory.
+	 *            This constructor also takes an image for display in the
+	 *            inventory.
 	 */
 	public Item(String cName, String cDescription, ImageIcon img,
 			Region itemRegion, String fDescription) {
@@ -46,6 +53,7 @@ public class Item implements Serializable {
 		description = cDescription;
 		interactableItems = new ArrayList<Item>();
 	}
+
 	String getName() {
 		return name;
 	}
@@ -53,15 +61,19 @@ public class Item implements Serializable {
 	ImageIcon getItemImage() {
 		return this.itemImage;
 	}
-	
+
 	Region getRegion() {
 		return r;
 	}
 	
+	void setRegion(Region reg) {
+		r = reg;
+	}
+
 	String getDescription() {
 		return description;
 	}
-	
+
 	String getFrenchDescription() {
 		return frenchDescription;
 	}

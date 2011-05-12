@@ -8,17 +8,17 @@ import java.awt.Graphics2D;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
-
 public class SidePanel extends JPanel {
 	private Launcher l;
 	private InventoryPanel invPanel;
 	private JTextArea textAreaViews;
 	private JTextArea textAreaBottom;
 	private JTextArea invDesc;
-	
+
 	public SidePanel(Launcher launch) {
 		l = launch;
-		textAreaViews = new JTextArea(l.getGame().getCurrentView().getCurrentDescription(),5,1);
+		textAreaViews = new JTextArea(l.getGame().getCurrentView()
+				.getCurrentDescription(), 5, 1);
 		textAreaViews.setLineWrap(true);
 		textAreaViews.setWrapStyleWord(true);
 		textAreaViews.setEditable(false);
@@ -29,7 +29,7 @@ public class SidePanel extends JPanel {
 		invDesc = new JTextArea("Inventory");
 		invDesc.setEditable(false);
 		invDesc.setOpaque(false);
-	//	invDesc.setBackground(Color.LIGHT_GRAY);
+		// invDesc.setBackground(Color.LIGHT_GRAY);
 		middle.add(invDesc);
 		middle.add(invPanel);
 		JPanel bottom = new JPanel();
@@ -46,34 +46,50 @@ public class SidePanel extends JPanel {
 		add(top);
 		add(middle);
 		add(bottom);
-	
+
+	}
+	public JTextArea getTopTextArea() {
+		return textAreaViews;
 	}
 	
+	public JTextArea getMiddleTextArea() {
+		return invDesc;
+	}
+	
+	public JTextArea getBottomTextArea() {
+		return textAreaBottom;
+	}
+
 	public InventoryPanel getInvPanel() {
 		return this.invPanel;
 	}
 	
+	public void setInvPanel(InventoryPanel inv) {
+		this.invPanel = inv;
+		}
+
 	public void updateText() {
 		if (l.getGame().getLanguage() == "english") {
-		textAreaViews.setText(l.getGame().getCurrentView().getCurrentDescription());
-		invDesc.setText("Inventory");
-		if (invPanel.selected!=null) {
-			System.out.println("here");
+			textAreaViews.setText(l.getGame().getCurrentView()
+					.getCurrentDescription());
+			invDesc.setText("Inventory");
+			if (invPanel.selected != null) {
 				textAreaBottom.setText(invPanel.selected.getDescription());
-		}
-		
+			}
+
 		} else {
-			if (invPanel.selected!=null) {
-			textAreaBottom.setText(invPanel.selected.getFrenchDescription());
+			if (invPanel.selected != null) {
+				textAreaBottom
+						.setText(invPanel.selected.getFrenchDescription());
 			}
 			invDesc.setText("French Inventory");
-			if (l.getGame().getCurrentView().getFrenchImage()!= null) {
-			textAreaViews.setText(l.getGame().getCurrentView().getFrenchDescription());
-		}
+			if (l.getGame().getCurrentView().getFrenchImage() != null) {
+				textAreaViews.setText(l.getGame().getCurrentView()
+						.getFrenchDescription());
+			}
 		}
 
-		this.updateUI();
+		
 	}
 
-	}
-
+}

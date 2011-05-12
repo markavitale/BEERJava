@@ -4,6 +4,7 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.Point;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
@@ -24,14 +25,15 @@ public class InventoryPanel extends JPanel implements MouseListener {
 		Dimension size = new Dimension(100, 400);
 		setPreferredSize(size);
 
-		Item dynamiteItem = new Item("dynamite",
+		Item dynamiteItem = new Item(
+				"dynamite",
 				"this dynamite could be used to blow things up, but its missing something",
 				new ImageIcon("images/dynamite.jpg"), new Region(15, 300, 70,
 						70), "dynamite description in french");
 		Item stringItem = new Item("string", "a very simple string",
-				new ImageIcon("images/string.jpg"), new Region(15, 225, 70,
-				70), "string description in french");
-				
+				new ImageIcon("images/string.jpg"),
+				new Region(15, 225, 70, 70), "string description in french");
+
 		Item matchesItem = new Item("matches",
 				"these matches can be used to light things on fire",
 				new ImageIcon("images/matches.jpg"),
@@ -67,7 +69,7 @@ public class InventoryPanel extends JPanel implements MouseListener {
 
 	@Override
 	public void mouseClicked(MouseEvent arg0) {
-		checkImageClick(arg0);
+		checkImageClick(arg0.getPoint());
 		this.repaint();
 		sidePanel.updateText();
 
@@ -77,11 +79,14 @@ public class InventoryPanel extends JPanel implements MouseListener {
 		return this.selected;
 	}
 
-	public void checkImageClick(MouseEvent arg0) {
+	public void setSelected(Item i) {
+		this.selected = i;
+	}
+	public void checkImageClick(Point p) {
 		for (int i = 0; i < myGame.getCurrentPlayer().getInventory().size(); i++) {
 			if (myGame.getCurrentPlayer().getInventory().get(i).getRegion()
-					.isInsideRegion(arg0.getX(), arg0.getY())) {
-				this.selected = myGame.getCurrentPlayer().getInventory().get(i);
+					.isInsideRegion((int)p.getX(),(int) p.getY())) {
+				setSelected(myGame.getCurrentPlayer().getInventory().get(i));
 			}
 		}
 

@@ -80,14 +80,10 @@ public class RegionTest {
 	@Test
 	public void isInsideRegionTestFalses() {
 		for (int i = 0; i < yValues.size(); i++) {
-			assertFalse(newRegion
-					.isInsideRegion(xMinMinusOne, yValues.get(i)));
-			assertFalse(newRegion
-					.isInsideRegion(xMaxPlusOne, yValues.get(i)));
-			assertFalse(newRegion
-					.isInsideRegion(xValues.get(i),yMinMinusOne));
-			assertFalse(newRegion
-					.isInsideRegion(xValues.get(i), yMaxPlusOne));
+			assertFalse(newRegion.isInsideRegion(xMinMinusOne, yValues.get(i)));
+			assertFalse(newRegion.isInsideRegion(xMaxPlusOne, yValues.get(i)));
+			assertFalse(newRegion.isInsideRegion(xValues.get(i), yMinMinusOne));
+			assertFalse(newRegion.isInsideRegion(xValues.get(i), yMaxPlusOne));
 		}
 	}
 
@@ -95,8 +91,8 @@ public class RegionTest {
 	public void isInsideRegionTestTrues() {
 		for (int i = xMin; i < xMax; i++) {
 			for (int z = yMin; z < yMax; z++) {
-				assertTrue(newRegion.isInsideRegion(xValues.get(i), yValues
-						.get(z)));
+				assertTrue(newRegion.isInsideRegion(xValues.get(i),
+						yValues.get(z)));
 			}
 		}
 	}

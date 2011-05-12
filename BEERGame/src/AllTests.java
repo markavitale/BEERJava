@@ -11,8 +11,10 @@ import org.junit.runners.Suite.SuiteClasses;
   ItemTest.class,
   PlayerTest.class,
   RegionTest.class,
-  ViewTest.class}
- // LauncherTest.class}
+  ViewTest.class,
+  SidePanelTest.class,
+  InventoryPanelTest.class,
+  LauncherTest.class}
 )
 
 public class AllTests {

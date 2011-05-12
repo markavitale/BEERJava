@@ -12,10 +12,12 @@ public class ItemTest {
 	@Before
 	public void setUp() throws Exception {
 		i1 = new Item("taser", "This is a taser", "french item description");
-		i2 = new Item("keys", "These keys unlock things", "french item description");
-		i3 = new Item("moneybag", "This bag contains money", "french item description");
+		i2 = new Item("keys", "These keys unlock things",
+				"french item description");
+		i3 = new Item("moneybag", "This bag contains money",
+				"french item description");
 		i4 = new Item("rock", "This is a rock", "french item description");
-		
+
 		i1.addInteractableItem(i2);
 		i1.addInteractableItem(i3);
 		i2.addInteractableItem(i4);
@@ -70,7 +72,6 @@ public class ItemTest {
 
 	@Test
 	public void testIsInteractable0() {
-	
 
 		assertTrue(i1.canInteractWithItem(i2));
 	}
@@ -84,12 +85,12 @@ public class ItemTest {
 	public void testIsInteractable2() {
 		assertFalse(i1.canInteractWithItem(i4));
 	}
-	
+
 	@Test
 	public void testIsInteractable3() {
 		assertTrue(i2.canInteractWithItem(i4));
 	}
-	
+
 	@Test
 	public void testIsInteractable4() {
 		assertTrue(i2.canInteractWithItem(i1));

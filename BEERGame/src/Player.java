@@ -1,47 +1,49 @@
 import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Player implements Serializable{
-	
+public class Player implements Serializable {
+
 	String name;
 	int clickCount;
 	ArrayList<Item> inventory;
-	
+
 	/**
-	 * @param playerName the name of the player
+	 * @param playerName
+	 *            the name of the player
 	 * 
-	 * this creates the player that will play through the game and 
-	 * initializes his inventory to be empty.
+	 *            this creates the player that will play through the game and
+	 *            initializes his inventory to be empty.
 	 */
-	public Player(String playerName){
+	public Player(String playerName) {
 		name = playerName;
 		inventory = new ArrayList<Item>();
 	}
-	
-	String getPlayerName(){
+
+	String getPlayerName() {
 		return name;
 	}
-	
+
 	public void setPlayerName(String pName) {
 		this.name = pName;
 	}
-	
-	void increaseClickCount(){
+
+	void increaseClickCount() {
 		clickCount++;
 	}
-	
-	int getClickCount(){
+
+	int getClickCount() {
 		return clickCount;
 	}
-	
-	void addItem(Item i){
+
+	void addItem(Item i) {
 		inventory.add(i);
 	}
-	
+
 	ArrayList<Item> getInventory() {
 		return this.inventory;
 	}
-	boolean hasItem(Item i){
+
+	boolean hasItem(Item i) {
 		return inventory.contains(i);
 	}
 }
