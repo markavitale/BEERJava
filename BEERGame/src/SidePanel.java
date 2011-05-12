@@ -4,7 +4,10 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
+import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
@@ -32,11 +35,22 @@ public class SidePanel extends JPanel {
 		// invDesc.setBackground(Color.LIGHT_GRAY);
 		middle.add(invDesc);
 		middle.add(invPanel);
+		JButton combineButton = new JButton();
+		combineButton.setText("Combine");
+		combineButton.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				
+				
+			}});
+
 		JPanel bottom = new JPanel();
 		textAreaBottom = new JTextArea("no item selected", 4, 1);
 		textAreaBottom.setEditable(false);
 		textAreaBottom.setLineWrap(true);
 		textAreaBottom.setWrapStyleWord(true);
+		bottom.add(combineButton);
 		bottom.add(textAreaBottom);
 		top.setPreferredSize(new Dimension(100, 100));
 		middle.setPreferredSize(new Dimension(100, 400));

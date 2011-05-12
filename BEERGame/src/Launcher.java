@@ -25,7 +25,8 @@ public class Launcher {
 
 	private Game game;
 	private GamePanel gamePanel;
-
+	private JFrame frame;
+	private String userName;
 	/**
 	 * on creation of a Launcher object, the game is created and initialized
 	 */
@@ -106,6 +107,13 @@ public class Launcher {
 		return (Game) objectIn.readObject();
 
 	}
+	public JFrame getFrame() {
+		return this.frame;
+	}
+	
+	public String getUserName() {
+		return this.userName;
+	}
 
 	/**
 	 * @param args
@@ -119,23 +127,23 @@ public class Launcher {
 		//l.writeGame(l.getGame());
 
 		// l.setGame(l.readGame());
-		String response = JOptionPane.showInputDialog(null,
+		l.userName = JOptionPane.showInputDialog(null,
 				"What is your name?", "Enter your name",
 				JOptionPane.QUESTION_MESSAGE);
-		l.getGame().getCurrentPlayer().setPlayerName(response);
+		l.getGame().getCurrentPlayer().setPlayerName(l.userName);
 		SidePanel sidePanel = new SidePanel(l);
 		l.gamePanel = new GamePanel(l, sidePanel);
-		JFrame frame = new JFrame();
+		l.frame = new JFrame();
 
-		GameBar bar = new GameBar(frame, l);
-		frame.setTitle(response + "'s Game");
-		frame.setJMenuBar(bar);
-		frame.setLayout(new FlowLayout());
-		frame.add(l.gamePanel);
-		frame.add(sidePanel);
+		GameBar bar = new GameBar(l.frame, l);
+		l.frame.setTitle(l.userName + "'s Game");
+		l.frame.setJMenuBar(bar);
+		l.frame.setLayout(new FlowLayout());
+		l.frame.add(l.gamePanel);
+		l.frame.add(sidePanel);
 
-		frame.pack();
-		frame.setVisible(true);
+		l.frame.pack();
+		l.frame.setVisible(true);
 	}
 
 }

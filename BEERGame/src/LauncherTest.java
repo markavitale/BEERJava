@@ -53,7 +53,7 @@ public class LauncherTest {
 		assertEquals(l.getGame().getCurrentView().getCurrentDescription()
 				,game2.getCurrentView().getCurrentDescription());
 	}
-	
+
 	@Test
 	public void testSerializableViewFrenchDesc() {
 		assertEquals(l.getGame().getCurrentView().getFrenchDescription()
