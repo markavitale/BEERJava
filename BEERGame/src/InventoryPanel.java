@@ -78,12 +78,11 @@ public class InventoryPanel extends JPanel implements MouseListener {
 		if (combineItem && (myGame.getCurrentPlayer().getInventory().size() == 5)) {
 			if (selected.getName() == "dynamite" ) {
 				if (myGame.getCurrentPlayer().getInventory().get(3).getRegion().isInsideRegion((int) p.getX(),(int)p.getY())) {
-					System.out.println("combining!");
 					myGame.getCurrentPlayer().removeItem(myGame.getCurrentPlayer().getInventory().get(3));
 					myGame.getCurrentPlayer().removeItem(myGame.getCurrentPlayer().getInventory().get(3));
 					myGame.getCurrentPlayer().addItem(myGame.getDynamiteItem());
 					this.setSelected(myGame.getDynamiteItem());
-					System.out.println(this.returnSelected().getDescription());
+
 					sidePanel.updateText();
 					this.setCombineItemFalse();
 					this.repaint();
@@ -91,12 +90,11 @@ public class InventoryPanel extends JPanel implements MouseListener {
 				}
 			} else if (selected.getName() == "string" ) {
 				if (myGame.getCurrentPlayer().getInventory().get(4).getRegion().isInsideRegion((int) p.getX(),(int)p.getY())) {
-					System.out.println("combining!");
 					myGame.getCurrentPlayer().removeItem(myGame.getCurrentPlayer().getInventory().get(3));
 					myGame.getCurrentPlayer().removeItem(myGame.getCurrentPlayer().getInventory().get(3));
 					myGame.getCurrentPlayer().addItem(myGame.getDynamiteItem());
 					this.setSelected(myGame.getDynamiteItem());
-					System.out.println(this.returnSelected().getDescription());
+
 					sidePanel.updateText();
 					this.setCombineItemFalse();
 					this.repaint();
@@ -112,7 +110,7 @@ public class InventoryPanel extends JPanel implements MouseListener {
 				setSelected(myGame.getCurrentPlayer().getInventory().get(i));
 			}
 		}
-
+		setCombineItemFalse();
 	}
 
 	@Override

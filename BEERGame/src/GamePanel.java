@@ -76,6 +76,12 @@ class GamePanel extends JPanel implements MouseListener, MouseMotionListener {
 						sidePanel.updateText();
 						mouseIsInsideRegion = false;
 						this.repaint();
+						if (currentRegion.getRequiredItem().getName()=="dynamitewithstring") {
+							myGame.getCurrentPlayer().getInventory().remove(myGame.getCurrentPlayer().getInventory().get(3));
+							
+							invPanel.setSelected(myGame.getCurrentPlayer().getInventory().get(2));
+							invPanel.repaint();
+						}
 					} else {
 						// do nothing
 					}

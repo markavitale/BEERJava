@@ -17,7 +17,8 @@ public class SidePanel extends JPanel {
 	private JTextArea textAreaViews;
 	private JTextArea textAreaBottom;
 	private JTextArea invDesc;
-
+	private JButton combineButton;
+	
 	public SidePanel(Launcher launch) {
 		l = launch;
 		textAreaViews = new JTextArea(l.getGame().getCurrentView()
@@ -35,7 +36,7 @@ public class SidePanel extends JPanel {
 		// invDesc.setBackground(Color.LIGHT_GRAY);
 		middle.add(invDesc);
 		middle.add(invPanel);
-		JButton combineButton = new JButton();
+		combineButton = new JButton();
 		combineButton.setText("Combine");
 		combineButton.addActionListener(new ActionListener() {
 
@@ -86,6 +87,7 @@ public class SidePanel extends JPanel {
 		if (l.getGame().getLanguage() == "english") {
 			textAreaViews.setText(l.getGame().getCurrentView()
 					.getCurrentDescription());
+			combineButton.setText("Combine");
 			invDesc.setText("Inventory");
 			if (invPanel.selected != null) {
 				textAreaBottom.setText(invPanel.selected.getDescription());
@@ -95,7 +97,11 @@ public class SidePanel extends JPanel {
 			if (invPanel.selected != null) {
 				textAreaBottom
 						.setText(invPanel.selected.getFrenchDescription());
+			} else {
+				textAreaBottom.setText("no item selected in french");
 			}
+			
+			combineButton.setText("French");
 			invDesc.setText("French Inventory");
 			if (l.getGame().getCurrentView().getFrenchImage() != null) {
 				textAreaViews.setText(l.getGame().getCurrentView()

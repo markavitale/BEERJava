@@ -73,13 +73,14 @@ public class Launcher {
 		Region dynamiteRegion = new Region(221,101,132,60,dynamiteItem, emptyDepositBoxes);
 		View depositBoxesDynamite = new View("deposit boxes dynamite", new ImageIcon("images/depositboxesdynamite.jpg"),
 				"deposit boxes dynamite in french", dynamiteRegion);
-		Region dynamiteBox = new Region(333,126,26,18,depositBoxesDynamite, keysItem);
+		
+		Region dynamiteBox = new Region(190,90,182,83,depositBoxesDynamite, keysItem);
 		View depositBoxesNoString = new View("deposit boxes no string", new ImageIcon("images/depositboxesstringempty.jpg"),
 				"deposit boxes no string french", dynamiteBox);
 		Region stringRegion = new Region(526,186,100,55,stringItem, depositBoxesNoString);
 		View depositBoxStringView = new View("deposit box with string", new ImageIcon("images/depositboxesstring.jpg"),
 				"deposit box with string french", stringRegion);
-		Region depositBoxString = new Region(632,209,30,30,depositBoxStringView, keysItem);
+		Region depositBoxString = new Region(515,169, 142, 98,depositBoxStringView, keysItem);
 		View depositBoxes = new View("deposit boxes", new ImageIcon("images/depositboxes.jpg"),
 				"deposit boxes in french", depositBoxString);
 		Region rightRegionVault = new Region(700,0,100,600, depositBoxes);
@@ -92,7 +93,7 @@ public class Launcher {
 		Region matchesRegion = new Region(378,172,116,88,matchesItem,matchesEmptyDeposit);
 		View matchDepositBoxView = new View("matches deposit box", new ImageIcon("images/matchesdepositbox.jpg"),
 				"matches deposit box in french", new ImageIcon("images/matchesdepositboxfrench.jpg"), matchesRegion);
-		Region matchDepositBox = new Region(378,177,144,88,matchDepositBoxView);
+		Region matchDepositBox = new Region(378,177,144,88,matchDepositBoxView, keysItem);
 		View robberDownKeys = new View("the keys are gone", new ImageIcon("images/robberdownnokeys.jpg")
 		, "the keys are gone in french", new ImageIcon("images/robberdownnokeysfrench.jpg"),matchDepositBox);
 		Region keyRegion = new Region(520, 520, 85, 60, keysItem, robberDownKeys);
