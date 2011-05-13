@@ -11,6 +11,7 @@ public class Game implements Serializable {
 	boolean isMuted;
 	boolean isPaused;
 	String language;
+	Item dynamiteItem;
 
 	/**
 	 * @param p
@@ -36,6 +37,13 @@ public class Game implements Serializable {
 	 */
 	public void setLanguage(String lang) {
 		this.language = lang;
+	}
+	public void setDynamiteItem(Item i) {
+		this.dynamiteItem = i;
+	}
+	
+	public Item getDynamiteItem() {
+		return this.dynamiteItem;
 	}
 
 	/**

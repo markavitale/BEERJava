@@ -62,6 +62,15 @@ public class View implements Serializable {
 		clickableRegions = new ArrayList<Region>();
 		clickableRegions.add(r);
 	}
+	
+	public View(String cDescription, ImageIcon cBackground, String fDescription, Region r) {
+		frenchDescription = fDescription;
+		description = cDescription;
+		background = cBackground;
+		possibleMoves = new ArrayList<View>();
+		clickableRegions = new ArrayList<Region>();
+		clickableRegions.add(r);
+	}
 
 	/**
 	 * @return the image for this view

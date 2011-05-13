@@ -28,31 +28,7 @@ public class InventoryPanel extends JPanel implements MouseListener {
 		combineItem = false;
 		setPreferredSize(size);
 
-		Item taserItem = new Item("taser", "this taser hurts bad guys",
-				new ImageIcon("images/taser.jpg"), new Region(15, 0, 70, 70),
-				"taser description in french");
-		Item dynamiteItem = new Item(
-				"dynamite",
-				"this dynamite could be used to blow things up, but its missing something",
-				new ImageIcon("images/dynamite.jpg"), new Region(15, 300, 70,
-						70), "dynamite description in french");
-		Item stringItem = new Item("string", "a very simple string",
-				new ImageIcon("images/string.jpg"),
-				new Region(15, 225, 70, 70), "string description in french");
-
-		Item matchesItem = new Item("matches",
-				"these matches can be used to light things on fire",
-				new ImageIcon("images/matches.jpg"),
-				new Region(15, 150, 70, 70), "matches description in french");
-		Item keysItem = new Item("keys",
-				"these keys unlock security deposity boxes", new ImageIcon(
-						"images/keys.jpg"), new Region(15, 75, 70, 70),
-				"taser description in french");
-		myGame.getCurrentPlayer().addItem(taserItem);
-		myGame.getCurrentPlayer().addItem(keysItem);
-		myGame.getCurrentPlayer().addItem(matchesItem);
-		myGame.getCurrentPlayer().addItem(stringItem);
-		myGame.getCurrentPlayer().addItem(dynamiteItem);
+	
 	}
 
 	public void setCombineItemTrue() {
@@ -100,18 +76,16 @@ public class InventoryPanel extends JPanel implements MouseListener {
 	}
 	public void checkCombineClick(Point p) {
 		if (combineItem && (myGame.getCurrentPlayer().getInventory().size() == 5)) {
-			Item dynamiteWithStringItem = new Item("dynamitewithstring", "dynamite with string",
-					new ImageIcon("images/stringanddynamite.jpg"), new Region(15, 225, 70, 70),
-					"dynamite with string in french");
 			if (selected.getName() == "dynamite" ) {
 				if (myGame.getCurrentPlayer().getInventory().get(3).getRegion().isInsideRegion((int) p.getX(),(int)p.getY())) {
 					System.out.println("combining!");
 					myGame.getCurrentPlayer().removeItem(myGame.getCurrentPlayer().getInventory().get(3));
 					myGame.getCurrentPlayer().removeItem(myGame.getCurrentPlayer().getInventory().get(3));
-					myGame.getCurrentPlayer().addItem(dynamiteWithStringItem);
-					this.setSelected(dynamiteWithStringItem);
+					myGame.getCurrentPlayer().addItem(myGame.getDynamiteItem());
+					this.setSelected(myGame.getDynamiteItem());
 					System.out.println(this.returnSelected().getDescription());
 					sidePanel.updateText();
+					this.setCombineItemFalse();
 					this.repaint();
 				
 				}
@@ -120,10 +94,11 @@ public class InventoryPanel extends JPanel implements MouseListener {
 					System.out.println("combining!");
 					myGame.getCurrentPlayer().removeItem(myGame.getCurrentPlayer().getInventory().get(3));
 					myGame.getCurrentPlayer().removeItem(myGame.getCurrentPlayer().getInventory().get(3));
-					myGame.getCurrentPlayer().addItem(dynamiteWithStringItem);
-					this.setSelected(dynamiteWithStringItem);
+					myGame.getCurrentPlayer().addItem(myGame.getDynamiteItem());
+					this.setSelected(myGame.getDynamiteItem());
 					System.out.println(this.returnSelected().getDescription());
 					sidePanel.updateText();
+					this.setCombineItemFalse();
 					this.repaint();
 				}
 			}
