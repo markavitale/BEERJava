@@ -1,6 +1,8 @@
 import java.awt.Image;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import javax.swing.ImageIcon;
 
@@ -9,7 +11,7 @@ import javax.swing.ImageIcon;
  * 
  *         this is a view in the game
  */
-public class View implements Serializable {
+public class View extends TimerTask implements Serializable{
 	String description;
 	String frenchDescription;
 	ImageIcon background;
@@ -57,6 +59,7 @@ public class View implements Serializable {
 
 	public View(String cDescription, ImageIcon cBackground, Region r) {
 		description = cDescription;
+		
 		background = cBackground;
 		possibleMoves = new ArrayList<View>();
 		clickableRegions = new ArrayList<Region>();
@@ -65,20 +68,25 @@ public class View implements Serializable {
 	
 	public View(String cDescription, ImageIcon cBackground, String fDescription, Region r) {
 		frenchDescription = fDescription;
+//		if (cDescription == "the dynamite is lit, back away!") {
+//			TimerTask newView = new View("you win", new ImageIcon("images/youwin.jpg"),
+//					"you win in french", new ImageIcon("images/youwinfrench.jpg"), newGame);
+//			Timer timer = new Timer();
+//			timer.schedule(newView, 100);
+//			}
 		description = cDescription;
 		background = cBackground;
 		possibleMoves = new ArrayList<View>();
 		clickableRegions = new ArrayList<Region>();
 		clickableRegions.add(r);
 	}
-
 	/**
 	 * @return the image for this view
 	 */
 	public ImageIcon getCurrentImage() {
 		return background;
 	}
-
+	
 	/**
 	 * @return the alternate view in French
 	 */
@@ -136,5 +144,11 @@ public class View implements Serializable {
 
 	void removeRegion(Region r) {
 		clickableRegions.remove(r);
+	}
+
+	@Override
+	public void run() {
+		System.out.println("timer test");
+		
 	}
 }

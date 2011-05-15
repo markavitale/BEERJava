@@ -1,4 +1,5 @@
 import java.awt.FlowLayout;
+import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.BufferedInputStream;
@@ -58,29 +59,29 @@ public class Launcher {
 		Region newGame = new Region(0,0,800,600);
 		View gameOverView = new View("you win", new ImageIcon("images/youwin.jpg"),
 				"you win in french", new ImageIcon("images/youwinfrench.jpg"), newGame);
-		Region endGameRegion = new Region(0,0,800,600,gameOverView); 
+		Region endGameRegion = new Region(gameOverView,new Point(0,0) ,800,600, gameOverView); 
 		View dynamiteLitView = new View("the dynamite is lit, back away!", new ImageIcon("images/vaultdynamitematch.jpg"),
 				"the dynamite is lit in french", endGameRegion);
-		Region dynamiteRegionOnGround = new Region(114,294,560,566, dynamiteLitView, matchesItem);
+		Region dynamiteRegionOnGround = new Region(new Point(114,294),560,566, dynamiteLitView, matchesItem);
 		View dynamiteView = new View("dynamite is on the ground", new ImageIcon("images/vaultdynamite.jpg"),
 				"dynamite is on ground in french", dynamiteRegionOnGround);
-		Region setDynamite = new Region(114,294,560,566,dynamiteView, dynamiteWithStringItem);
+		Region setDynamite = new Region(new Point(114,294),560,566,dynamiteView, dynamiteWithStringItem);
 		View vaultMain = new View("vault main view", new ImageIcon("images/vaultmain.jpg"),
 				"vault main view in french",setDynamite);
 		Region leftRegion = new Region(0,0,100,600, vaultMain);
 		View emptyDepositBoxes = new View("empty deposit boxes", new ImageIcon("images/depositboxesempty.jpg"),
 				"empty deposit boxes in french", leftRegion);
-		Region dynamiteRegion = new Region(221,101,132,60,dynamiteItem, emptyDepositBoxes);
+		Region dynamiteRegion = new Region(new Point(221,101),132,60,dynamiteItem, emptyDepositBoxes);
 		View depositBoxesDynamite = new View("deposit boxes dynamite", new ImageIcon("images/depositboxesdynamite.jpg"),
 				"deposit boxes dynamite in french", dynamiteRegion);
 		
-		Region dynamiteBox = new Region(190,90,182,83,depositBoxesDynamite, keysItem);
+		Region dynamiteBox = new Region(new Point(190,90),182,83,depositBoxesDynamite, keysItem);
 		View depositBoxesNoString = new View("deposit boxes no string", new ImageIcon("images/depositboxesstringempty.jpg"),
 				"deposit boxes no string french", dynamiteBox);
-		Region stringRegion = new Region(526,186,100,55,stringItem, depositBoxesNoString);
+		Region stringRegion = new Region(new Point(526,186),100,55,stringItem, depositBoxesNoString);
 		View depositBoxStringView = new View("deposit box with string", new ImageIcon("images/depositboxesstring.jpg"),
 				"deposit box with string french", stringRegion);
-		Region depositBoxString = new Region(515,169, 142, 98,depositBoxStringView, keysItem);
+		Region depositBoxString = new Region(new Point(515,169), 142, 98,depositBoxStringView, keysItem);
 		View depositBoxes = new View("deposit boxes", new ImageIcon("images/depositboxes.jpg"),
 				"deposit boxes in french", depositBoxString);
 		Region rightRegionVault = new Region(700,0,100,600, depositBoxes);
@@ -90,24 +91,24 @@ public class Launcher {
 		
 		View matchesEmptyDeposit = new View("matches deposit box empty", new ImageIcon("images/matchesdepositboxempty.jpg"),
 				"matches deposit box empty in french", new ImageIcon("images/matchesdepositboxemptyfrench.jpg"), rightRegion);
-		Region matchesRegion = new Region(378,172,116,88,matchesItem,matchesEmptyDeposit);
+		Region matchesRegion = new Region(new Point(378,172),116,88,matchesItem,matchesEmptyDeposit);
 		View matchDepositBoxView = new View("matches deposit box", new ImageIcon("images/matchesdepositbox.jpg"),
 				"matches deposit box in french", new ImageIcon("images/matchesdepositboxfrench.jpg"), matchesRegion);
-		Region matchDepositBox = new Region(378,177,144,88,matchDepositBoxView, keysItem);
+		Region matchDepositBox = new Region(new Point(378,177),144,88,matchDepositBoxView, keysItem);
 		View robberDownKeys = new View("the keys are gone", new ImageIcon("images/robberdownnokeys.jpg")
 		, "the keys are gone in french", new ImageIcon("images/robberdownnokeysfrench.jpg"),matchDepositBox);
-		Region keyRegion = new Region(520, 520, 85, 60, keysItem, robberDownKeys);
+		Region keyRegion = new Region(new Point(520, 520), 85, 60, keysItem, robberDownKeys);
 		View robberDown = new View("the robber is unconscious", new ImageIcon(
 				"images/robberdown.jpg"),
 				"the robber is unconscious in french", new ImageIcon(
 						"images/robberDown.jpg"), keyRegion);
-		Region badGuyRegion = new Region(435, 111, 200, 300, robberDown,
+		Region badGuyRegion = new Region(new Point(435, 111), 200, 300, robberDown,
 				taserItem);
 		View noTaser = new View("taser is gone", new ImageIcon(
 				"images/noTaser.jpg"), "taser is gone french", new ImageIcon(
 				"images/noTaserFrench.jpg"), badGuyRegion);
 
-		Region taserRegion = new Region(32, 495, 60, 90, taserItem, noTaser);
+		Region taserRegion = new Region(new Point(32, 495), 60, 90, taserItem, noTaser);
 		View main = new View("opening view in english", new ImageIcon(
 				"images/main.jpg"), "opening view in french", new ImageIcon(
 				"images/mainfrench.jpg"), taserRegion);

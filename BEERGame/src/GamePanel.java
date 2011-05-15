@@ -7,6 +7,8 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import javax.swing.JPanel;
 
@@ -21,6 +23,7 @@ class GamePanel extends JPanel implements MouseListener, MouseMotionListener {
 	public GamePanel(Launcher l, SidePanel sidePane) {
 		this.addMouseListener(this);
 		this.addMouseMotionListener(this);
+		
 		this.sidePanel = sidePane;
 		invPanel = sidePanel.getInvPanel();
 		mouseIsInsideRegion = false;
@@ -55,27 +58,32 @@ class GamePanel extends JPanel implements MouseListener, MouseMotionListener {
 		}
 	}
 
-	public void checkRegion(int x, int y) {
+	public void checkRegion(int x, int y){
+		
 		Region currentRegion = myGame.getCurrentView().getRegions().get(0);
 		if (currentRegion.isInsideRegion(x, y)) {
 			if (currentRegion.hasItem()) {
 				if (!this.myGame.getCurrentPlayer().getInventory()
 						.contains(currentRegion.getItem())) {
 					myGame.changeView(currentRegion.getView());
+	
 					mouseIsInsideRegion = false;
 					sidePanel.updateText();
 					this.myGame.getCurrentPlayer().addItem(
 							currentRegion.getItem());
 					this.invPanel.repaint();
 					this.repaint();
+					
 				}
 			} else {
 				if (currentRegion.hasRequiredItem()) {
 					if (currentRegion.getRequiredItem() == invPanel.selected) {
 						myGame.changeView(currentRegion.getView());
+						
 						sidePanel.updateText();
 						mouseIsInsideRegion = false;
 						this.repaint();
+						
 						if (currentRegion.getRequiredItem().getName()=="dynamitewithstring") {
 							myGame.getCurrentPlayer().getInventory().remove(myGame.getCurrentPlayer().getInventory().get(3));
 							
@@ -90,14 +98,40 @@ class GamePanel extends JPanel implements MouseListener, MouseMotionListener {
 					sidePanel.updateText();
 					mouseIsInsideRegion = false;
 					this.repaint();
+					
 				}
 			}
 		}
+		
 	}
 
+	public void checkForWaitView() {
+	
+		if (myGame.getCurrentView().getRegions().get(0).hasWaitView()) {
+			Timer timer = new Timer();
+			timer.schedule(new WaitViewUpdate(),3000);
+		}
+	}
+//		if (myGame.getCurrentView().getRegions().get(0).hasWaitView()) {
+//			Thread.sleep(500);
+//			this.repaint();
+//			System.out.println("here");
+//			Thread.sleep(4000);
+//			checkRegion(50,50);
+//			
+//		}
+	class WaitViewUpdate extends TimerTask {
+		public void run() {
+			GamePanel.this.checkRegion(50,50);
+			
+		}
+	}
+	
 	@Override
 	public void mouseClicked(MouseEvent arg0) {
-		checkRegion(arg0.getX(), arg0.getY());
+			checkRegion(arg0.getX(), arg0.getY());
+			checkForWaitView();
+		
 
 	}
 

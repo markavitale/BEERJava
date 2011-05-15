@@ -1,3 +1,4 @@
+import java.awt.Point;
 import java.io.Serializable;
 import java.util.ArrayList;
 
@@ -14,6 +15,7 @@ public class Region implements Serializable {
 	int height;
 	Item itemToPickUp;
 	View v;
+	View waitView;
 	Item itemRequiredToInteract;
 
 	/**
@@ -78,20 +80,20 @@ public class Region implements Serializable {
 	 *            this allows an item to be interacted with in a way that will
 	 *            change the current view to the provided view.
 	 */
-	public Region(int newX, int newY, int w, int h, View view, Item interact) {
+	public Region(Point p, int w, int h, View view, Item interact) {
 		v = view;
-		x = newX;
-		y = newY;
+		x =(int) p.getX();
+		y = (int) p.getY();
 		width = w;
 		height = h;
 		this.itemRequiredToInteract = interact;
 
 	}
 
-	public Region(int newX, int newY, int w, int h, Item item, View view) {
+	public Region(Point p, int w, int h, Item item, View view) {
 		v = view;
-		x = newX;
-		y = newY;
+		x =(int) p.getX();
+		y = (int) p.getY();
 		width = w;
 		height = h;
 		itemToPickUp = item;
@@ -107,8 +109,23 @@ public class Region implements Serializable {
 
 	}
 
+	public Region(View waitV, Point p, int w, int h, View view) {
+		waitView = waitV;
+		v = view;
+		x = (int) p.getX();
+		y = (int) p.getY();;
+		width = w;
+		height = h;
+	}
 	Item getItem() {
 		return itemToPickUp;
+	}
+	
+	boolean hasWaitView() {
+		if (waitView!=null) {
+			return true;
+		}
+		return false;
 	}
 
 	Item getRequiredItem() {
@@ -117,6 +134,10 @@ public class Region implements Serializable {
 
 	View getView() {
 		return v;
+	}
+	
+	View getWaitView() {
+		return waitView;
 	}
 
 	boolean hasItem() {

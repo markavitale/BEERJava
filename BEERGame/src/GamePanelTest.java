@@ -29,20 +29,20 @@ public class GamePanelTest {
 	}
 
 	@Test
-	public void checkRegionFalse() {
+	public void checkRegionFalse() throws InterruptedException {
 		panel.checkRegion(1, 1);
 		assertEquals(v, l.getGame().getCurrentView());
 	}
 
 	@Test
-	public void checkRegionChangeFalse() {
+	public void checkRegionChangeFalse() throws InterruptedException {
 		Region currentRegion = l.getGame().getCurrentView().getRegions().get(0);
 		panel.checkRegion(currentRegion.getX(), currentRegion.getY());
 		assertFalse(v.equals(l.getGame().getCurrentView()));
 	}
 
 	@Test
-	public void checkRegionChangeTrue() {
+	public void checkRegionChangeTrue() throws InterruptedException {
 		Region currentRegion = l.getGame().getCurrentView().getRegions().get(0);
 		panel.checkRegion(currentRegion.getX(), currentRegion.getY());
 		assertEquals(v2, l.getGame().getCurrentView());

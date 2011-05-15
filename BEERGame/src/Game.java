@@ -1,11 +1,15 @@
 import java.io.Serializable;
+import java.util.Timer;
+import java.util.TimerTask;
+
+import javax.swing.ImageIcon;
 
 /**
  * @author vitalema and hannantt
  * 
  *         This class represents the current state of the game
  */
-public class Game implements Serializable {
+public class Game extends TimerTask implements Serializable {
 	Player currentPlayer;
 	View currentView;
 	boolean isMuted;
@@ -45,7 +49,8 @@ public class Game implements Serializable {
 	public Item getDynamiteItem() {
 		return this.dynamiteItem;
 	}
-
+	
+		
 	/**
 	 * @return the current view
 	 */
@@ -93,5 +98,11 @@ public class Game implements Serializable {
 
 	Boolean isPaused() {
 		return isPaused;
+	}
+
+	@Override
+	public void run() {
+		changeView(currentView.getRegions().get(0).getWaitView());
+		
 	}
 }
