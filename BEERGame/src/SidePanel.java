@@ -45,7 +45,6 @@ public class SidePanel extends JPanel implements Serializable {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				SidePanel.this.invPanel.checkCombineItem();
-				System.out.println("checking");
 				
 			}});
 

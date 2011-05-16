@@ -33,11 +33,12 @@ public class InventoryPanel extends JPanel implements MouseListener, Serializabl
 	}
 
 	public void checkCombineItem() {
+		if (returnSelected()!= null) {
 		if (((returnSelected().getName().equals("dynamite")) | 
 				(returnSelected().getName().equals("string"))) && 
 				(myGame.getCurrentPlayer().getInventory().size() == 5)) {
-			System.out.println("combine true");
 		combineItem = true;
+		}
 		}
 		else {
 			combineItem = false;
