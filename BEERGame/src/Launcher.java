@@ -59,7 +59,10 @@ public class Launcher {
 		Region newGame = new Region(0,0,800,600);
 		View gameOverView = new View("you win", new ImageIcon("images/youwin.jpg"),
 				"you win in french", new ImageIcon("images/youwinfrench.jpg"), newGame);
-		Region endGameRegion = new Region(gameOverView,new Point(0,0) ,800,600, gameOverView); 
+		Region explosionRegion = new Region(gameOverView, new Point(0,0), 800, 600, gameOverView);
+		View explosionView = new View("kaboom!", new ImageIcon("images/kaboom.jpg"),
+				"kaboom in french", explosionRegion);
+		Region endGameRegion = new Region(gameOverView,new Point(0,0) ,800,600, explosionView); 
 		View dynamiteLitView = new View("the dynamite is lit, back away!", new ImageIcon("images/vaultdynamitematch.jpg"),
 				"the dynamite is lit in french", endGameRegion);
 		Region dynamiteRegionOnGround = new Region(new Point(114,294),560,566, dynamiteLitView, matchesItem);

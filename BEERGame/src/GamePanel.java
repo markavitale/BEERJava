@@ -19,11 +19,12 @@ class GamePanel extends JPanel implements MouseListener, MouseMotionListener {
 	private InventoryPanel invPanel;
 	private boolean mouseIsInsideRegion;
 	private SidePanel sidePanel;
+	private Timer t;
 
 	public GamePanel(Launcher l, SidePanel sidePane) {
 		this.addMouseListener(this);
 		this.addMouseMotionListener(this);
-		
+		t = new Timer();
 		this.sidePanel = sidePane;
 		invPanel = sidePanel.getInvPanel();
 		mouseIsInsideRegion = false;
@@ -102,15 +103,17 @@ class GamePanel extends JPanel implements MouseListener, MouseMotionListener {
 				}
 			}
 		}
-		
+		checkForWaitView();
 	}
 
 	public void checkForWaitView() {
 	
 		if (myGame.getCurrentView().getRegions().get(0).hasWaitView()) {
-			Timer timer = new Timer();
-			timer.schedule(new WaitViewUpdate(),3000);
+			
+			t.schedule(new WaitViewUpdate(),2000);
+			
 		}
+		
 	}
 //		if (myGame.getCurrentView().getRegions().get(0).hasWaitView()) {
 //			Thread.sleep(500);
@@ -130,7 +133,8 @@ class GamePanel extends JPanel implements MouseListener, MouseMotionListener {
 	@Override
 	public void mouseClicked(MouseEvent arg0) {
 			checkRegion(arg0.getX(), arg0.getY());
-			checkForWaitView();
+		
+		
 		
 
 	}
