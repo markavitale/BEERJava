@@ -119,9 +119,13 @@ public class Launcher {
 		View home = new View("home view in english", new ImageIcon(
 				"images/homeEnglish.jpg"), "home view in french",
 				new ImageIcon("images/homeFrench.jpg"), homeRegion);
-
+		
+		Region pauseRegion = new Region(0,0,800,600);
+		View pauseView = new View("pause view in english", new ImageIcon(
+				"images/pause.jpg"), "pause view in french", new ImageIcon(
+						"images/pausefrench.jpg"), pauseRegion);
 		Player p = new Player("Tyler");
-		this.game = new Game(p, home);
+		this.game = new Game(p, home, pauseView);
 		getGame().setDynamiteItem(dynamiteWithStringItem);
 
 	}

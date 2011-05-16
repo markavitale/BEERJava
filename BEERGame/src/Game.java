@@ -16,6 +16,7 @@ public class Game extends TimerTask implements Serializable {
 	boolean isPaused;
 	String language;
 	Item dynamiteItem;
+	View pauseView;
 
 	/**
 	 * @param p
@@ -25,12 +26,13 @@ public class Game extends TimerTask implements Serializable {
 	 * 
 	 *            The constructor for making a new game instance.
 	 */
-	public Game(Player p, View v) {
+	public Game(Player p, View v, View pauseV) {
 		language = "english";
 		currentPlayer = p;
 		currentView = v;
 		isMuted = false;
 		isPaused = false;
+		pauseView = pauseV;
 	}
 
 	/**
@@ -57,7 +59,9 @@ public class Game extends TimerTask implements Serializable {
 	public View getCurrentView() {
 		return this.currentView;
 	}
-
+	public View getPauseView() {
+		return this.pauseView;
+	}
 	/**
 	 * @return the language the game should be played in.
 	 */

@@ -1,5 +1,7 @@
 import static org.junit.Assert.*;
 
+import javax.swing.ImageIcon;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -13,7 +15,11 @@ public class GameTest {
 	@Before
 	public void setUp() throws Exception {
 		p = new Player("Tyler");
-		g = new Game(p, v);
+		Region pauseRegion = new Region(0,0,800,600);
+		View pauseView = new View("pause view in english", new ImageIcon(
+				"images/pause.jpg"), "pause view in french", new ImageIcon(
+						"images/pausefrench.jpg"), pauseRegion);
+		g = new Game(p, v, pauseView);
 	}
 
 	@Test

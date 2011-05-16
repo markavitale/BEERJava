@@ -10,39 +10,53 @@ public class GameBar extends JMenuBar {
 	private Launcher l;
 	private JMenuItem french;
 	private JMenuItem english;
-	private JMenu languageMenu;
+	private JMenuItem pause;
+	private JMenu fileMenu;
 	public GameBar(JFrame frame, Launcher launch) {
 		frame = frame;
 		l = launch;
-		languageMenu = new JMenu("Language");
+		fileMenu = new JMenu("File");
 		french = new JMenuItem("French");
 		french.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				GameBar.this.l.getGame().setLanguage("french");
-				GameBar.this.languageMenu.setText("Language in french");
+				GameBar.this.fileMenu.setText("File in French");
 				GameBar.this.l.getFrame().setTitle(GameBar.this.l.getUserName() +"'s game in french");
 				GameBar.this.l.getGamePanel().repaint();
 				GameBar.this.l.getGamePanel().getSidePanel().updateText();
 			}
 
 		});
-		languageMenu.add(french);
+		fileMenu.add(french);
 		english = new JMenuItem("English");
 		english.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				GameBar.this.l.getGame().setLanguage("english");
-				GameBar.this.languageMenu.setText("Language");
+				GameBar.this.fileMenu.setText("Language");
 				GameBar.this.l.getFrame().setTitle(GameBar.this.l.getUserName()+ "'s game");
 				GameBar.this.l.getGamePanel().repaint();
 				GameBar.this.l.getGamePanel().getSidePanel().updateText();
 			}
 
 		});
-		languageMenu.add(english);
-		this.add(languageMenu);
+		fileMenu.add(english);
+		pause = new JMenuItem("Pause");
+		pause.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				GameBar.this.l.getGame().pauseGame();
+				GameBar.this.l.getFrame().setTitle(GameBar.this.l.getUserName()+ "'s game");
+				GameBar.this.l.getGamePanel().repaint();
+				GameBar.this.l.getGamePanel().getSidePanel().updateText();
+			}
+
+		});
+		fileMenu.add(pause);
+		this.add(fileMenu);
 	}
 }
