@@ -6,12 +6,13 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.Serializable;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
-public class SidePanel extends JPanel {
+public class SidePanel extends JPanel implements Serializable {
 	private Launcher l;
 	private InventoryPanel invPanel;
 	private JTextArea textAreaViews;
@@ -21,6 +22,7 @@ public class SidePanel extends JPanel {
 	
 	public SidePanel(Launcher launch) {
 		l = launch;
+		l.getGame().setLanguage("english");
 		textAreaViews = new JTextArea(l.getGame().getCurrentView()
 				.getCurrentDescription(), 5, 1);
 		textAreaViews.setLineWrap(true);
@@ -42,7 +44,8 @@ public class SidePanel extends JPanel {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				SidePanel.this.invPanel.setCombineItemTrue();
+				SidePanel.this.invPanel.checkCombineItem();
+				System.out.println("checking");
 				
 			}});
 

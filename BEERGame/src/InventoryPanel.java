@@ -7,12 +7,13 @@ import java.awt.Image;
 import java.awt.Point;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
-public class InventoryPanel extends JPanel implements MouseListener {
+public class InventoryPanel extends JPanel implements MouseListener, Serializable {
 
 	private Game myGame;
 	Item selected;
@@ -31,13 +32,18 @@ public class InventoryPanel extends JPanel implements MouseListener {
 	
 	}
 
-	public void setCombineItemTrue() {
+	public void checkCombineItem() {
+		if (((returnSelected().getName().equals("dynamite")) | 
+				(returnSelected().getName().equals("string"))) && 
+				(myGame.getCurrentPlayer().getInventory().size() == 5)) {
+			System.out.println("combine true");
 		combineItem = true;
+		}
+		else {
+			combineItem = false;
+		}
 	}
 	
-	public void setCombineItemFalse() {
-		combineItem = false;
-	}
 	@Override
 	public void paintComponent(Graphics g) {
 		Graphics2D g2 = (Graphics2D) g;
@@ -60,10 +66,13 @@ public class InventoryPanel extends JPanel implements MouseListener {
 
 	@Override
 	public void mouseClicked(MouseEvent arg0) {
+		if (myGame.getCurrentPlayer().getInventory().size() > 0) {
 		checkCombineClick(arg0.getPoint());
 		checkImageClick(arg0.getPoint());
 		this.repaint();
 		sidePanel.updateText();
+		}
+		
 
 	}
 
@@ -75,20 +84,20 @@ public class InventoryPanel extends JPanel implements MouseListener {
 		this.selected = i;
 	}
 	public void checkCombineClick(Point p) {
-		if (combineItem && (myGame.getCurrentPlayer().getInventory().size() == 5)) {
-			if (selected.getName() == "dynamite" ) {
+		if (combineItem) {
+			if (selected.getName().equals("dynamite")) {
 				if (myGame.getCurrentPlayer().getInventory().get(3).getRegion().isInsideRegion((int) p.getX(),(int)p.getY())) {
 					myGame.getCurrentPlayer().removeItem(myGame.getCurrentPlayer().getInventory().get(3));
 					myGame.getCurrentPlayer().removeItem(myGame.getCurrentPlayer().getInventory().get(3));
-					myGame.getCurrentPlayer().addItem(myGame.getDynamiteItem());
+					myGame.getCurrentPlayer().addItem(myGame.getDynamiteItem()); 
 					this.setSelected(myGame.getDynamiteItem());
 
 					sidePanel.updateText();
-					this.setCombineItemFalse();
+					checkCombineItem();
 					this.repaint();
 				
 				}
-			} else if (selected.getName() == "string" ) {
+			} else if (selected.getName().equals("string")) {
 				if (myGame.getCurrentPlayer().getInventory().get(4).getRegion().isInsideRegion((int) p.getX(),(int)p.getY())) {
 					myGame.getCurrentPlayer().removeItem(myGame.getCurrentPlayer().getInventory().get(3));
 					myGame.getCurrentPlayer().removeItem(myGame.getCurrentPlayer().getInventory().get(3));
@@ -96,7 +105,7 @@ public class InventoryPanel extends JPanel implements MouseListener {
 					this.setSelected(myGame.getDynamiteItem());
 
 					sidePanel.updateText();
-					this.setCombineItemFalse();
+					checkCombineItem();
 					this.repaint();
 				}
 			}
@@ -110,7 +119,7 @@ public class InventoryPanel extends JPanel implements MouseListener {
 				setSelected(myGame.getCurrentPlayer().getInventory().get(i));
 			}
 		}
-		setCombineItemFalse();
+		checkCombineItem();
 	}
 
 	@Override

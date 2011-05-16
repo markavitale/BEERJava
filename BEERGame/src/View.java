@@ -11,7 +11,7 @@ import javax.swing.ImageIcon;
  * 
  *         this is a view in the game
  */
-public class View extends TimerTask implements Serializable{
+public class View implements Serializable{
 	String description;
 	String frenchDescription;
 	ImageIcon background;
@@ -91,7 +91,10 @@ public class View extends TimerTask implements Serializable{
 	 * @return the alternate view in French
 	 */
 	public ImageIcon getFrenchImage() {
+		if (this.frenchBackground != null) {
 		return this.frenchBackground;
+	}
+		return this.background;
 	}
 
 	public String getFrenchDescription() {
@@ -146,9 +149,5 @@ public class View extends TimerTask implements Serializable{
 		clickableRegions.remove(r);
 	}
 
-	@Override
-	public void run() {
-		System.out.println("timer test");
-		
-	}
+
 }

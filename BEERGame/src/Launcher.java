@@ -126,7 +126,8 @@ public class Launcher {
 						"images/pausefrench.jpg"), pauseRegion);
 		Player p = new Player("Tyler");
 		this.game = new Game(p, home, pauseView);
-		getGame().setDynamiteItem(dynamiteWithStringItem);
+		this.game.setDynamiteItem(dynamiteWithStringItem);
+		
 
 	}
 
@@ -161,8 +162,9 @@ public class Launcher {
 
 		objectIn = new ObjectInputStream(new BufferedInputStream(
 				new FileInputStream("objects.bin")));
-
-		return (Game) objectIn.readObject();
+		Game g = (Game) objectIn.readObject();
+		objectIn.close();
+		return g;
 
 	}
 	public JFrame getFrame() {
@@ -182,9 +184,9 @@ public class Launcher {
 	 */
 	public static void main(String[] args) throws Exception {
 		Launcher l = new Launcher();
-		//l.writeGame(l.getGame());
-
-		// l.setGame(l.readGame());
+		l.writeGame(l.getGame());
+		l.setGame(l.readGame());
+		System.out.println(l.getGame().getLanguage());
 		l.userName = JOptionPane.showInputDialog(null,
 				"What is your name?", "Enter your name",
 				JOptionPane.QUESTION_MESSAGE);
@@ -199,9 +201,11 @@ public class Launcher {
 		l.frame.setLayout(new FlowLayout());
 		l.frame.add(l.gamePanel);
 		l.frame.add(sidePanel);
-
+		
 		l.frame.pack();
 		l.frame.setVisible(true);
+		l.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
 	}
 
 }

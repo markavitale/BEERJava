@@ -6,13 +6,15 @@ import java.awt.Image;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 
 import javax.swing.JPanel;
 
-class GamePanel extends JPanel implements MouseListener, MouseMotionListener {
+class GamePanel extends JPanel implements MouseListener, MouseMotionListener,
+		Serializable {
 
 	private Image img;
 	private Game myGame;
@@ -40,78 +42,82 @@ class GamePanel extends JPanel implements MouseListener, MouseMotionListener {
 		return this.sidePanel;
 	}
 
+	public void drawRegions(Graphics g, View v) {
+		if (mouseIsInsideRegion == true) {
+			ArrayList<Region> regionList = v.getRegions();
+			for (int i = 0; i < regionList.size(); i++) {
+				g.setColor(Color.RED);
+				g.drawRect(regionList.get(i).getX(), regionList.get(i).getY(),
+						regionList.get(i).getWidth(), regionList.get(i)
+								.getHeight());
+			}
+		}
+	}
+
 	public void paintComponent(Graphics g) {
 		View v = myGame.getCurrentView();
-	
+
 		if (myGame.isPaused()) {
-			
+
 			v = myGame.getPauseView();
 		}
-			if (myGame.getLanguage() == "french"
-					&& (myGame.getCurrentView().getFrenchImage() != null)) {
-				g.drawImage(v.getFrenchImage().getImage(), 0, 0, null);
+		if (myGame.getLanguage() == "french") {
+			g.drawImage(v.getFrenchImage().getImage(), 0, 0, null);
+		} else {
+			g.drawImage(v.getCurrentImage().getImage(), 0, 0, null);
+		}
+		drawRegions(g, v);
+
+	}
+
+	public void updateView(Region currentRegion) {
+		myGame.changeView(currentRegion.getView());
+		sidePanel.updateText();
+		mouseIsInsideRegion = false;
+		this.repaint();
+	}
+
+	public void checkForDynamite(Region currentRegion) {
+
+		if (currentRegion.getRequiredItem().getName().equals("dynamitewithstring")) {
+			myGame.getCurrentPlayer().getInventory()
+					.remove(myGame.getCurrentPlayer().getInventory().get(3));
+
+			invPanel.setSelected(myGame.getCurrentPlayer().getInventory()
+					.get(2));
+			invPanel.repaint();
+		}
+	}
+
+	public void checkItem() {
+		Region currentRegion = myGame.getCurrentView().getRegions().get(0);
+		if (currentRegion.hasItem()
+				&& (!this.myGame.getCurrentPlayer().getInventory()
+						.contains(currentRegion.getItem()))) {
+			updateView(currentRegion);
+			this.myGame.getCurrentPlayer().addItem(currentRegion.getItem());
+			this.invPanel.repaint();
+		} else {
+			if (currentRegion.hasRequiredItem()
+					&& (currentRegion.getRequiredItem() == invPanel.selected)) {
+				updateView(currentRegion);
+				checkForDynamite(currentRegion);
+			} else if (currentRegion.hasRequiredItem()
+					&& (currentRegion.getRequiredItem() != invPanel.selected)) {
+				// do nothing
 			} else {
-				g.drawImage(v.getCurrentImage().getImage(), 0, 0, null);
+				updateView(currentRegion);
+
 			}
-			if (mouseIsInsideRegion == true) {
-				ArrayList<Region> regionList = v.getRegions();
-				for (int i = 0; i < regionList.size(); i++) {
-					g.setColor(Color.RED);
-					g.drawRect(regionList.get(i).getX(), regionList.get(i)
-							.getY(), regionList.get(i).getWidth(), regionList
-							.get(i).getHeight());
-				}
-			}
-		
+		}
 	}
 
 	public void checkRegion(int x, int y) {
 
 		Region currentRegion = myGame.getCurrentView().getRegions().get(0);
 		if (currentRegion.isInsideRegion(x, y)) {
-			if (currentRegion.hasItem()) {
-				if (!this.myGame.getCurrentPlayer().getInventory()
-						.contains(currentRegion.getItem())) {
-					myGame.changeView(currentRegion.getView());
+			checkItem();
 
-					mouseIsInsideRegion = false;
-					sidePanel.updateText();
-					this.myGame.getCurrentPlayer().addItem(
-							currentRegion.getItem());
-					this.invPanel.repaint();
-					this.repaint();
-
-				}
-			} else {
-				if (currentRegion.hasRequiredItem()) {
-					if (currentRegion.getRequiredItem() == invPanel.selected) {
-						myGame.changeView(currentRegion.getView());
-
-						sidePanel.updateText();
-						mouseIsInsideRegion = false;
-						this.repaint();
-
-						if (currentRegion.getRequiredItem().getName() == "dynamitewithstring") {
-							myGame.getCurrentPlayer()
-									.getInventory()
-									.remove(myGame.getCurrentPlayer()
-											.getInventory().get(3));
-
-							invPanel.setSelected(myGame.getCurrentPlayer()
-									.getInventory().get(2));
-							invPanel.repaint();
-						}
-					} else {
-						// do nothing
-					}
-				} else {
-					myGame.changeView(currentRegion.getView());
-					sidePanel.updateText();
-					mouseIsInsideRegion = false;
-					this.repaint();
-
-				}
-			}
 		}
 		checkForWaitView();
 	}
@@ -119,9 +125,7 @@ class GamePanel extends JPanel implements MouseListener, MouseMotionListener {
 	public void checkForWaitView() {
 
 		if (myGame.getCurrentView().getRegions().get(0).hasWaitView()) {
-
 			t.schedule(new WaitViewUpdate(), 2000);
-
 		}
 
 	}
