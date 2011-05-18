@@ -7,6 +7,7 @@ import javax.swing.ImageIcon;
  * This class represents an item in the game.
  * 
  */
+@SuppressWarnings("serial")
 public class Item implements Serializable {
 
 	String name;
@@ -22,7 +23,9 @@ public class Item implements Serializable {
 	 * @param cDescription
 	 *            - the description of the item.
 	 * 
-	 *            This is the constructor to the item class,
+	 * @param fDescription
+	 *            - the description of the item in french. This is the
+	 *            constructor to the item class,
 	 */
 	public Item(String cName, String cDescription, String fDescription) {
 		name = cName;
@@ -41,8 +44,9 @@ public class Item implements Serializable {
 	 * @param itemRegion
 	 *            - the clickable region for this item on the screen
 	 * 
-	 *            This constructor also takes an image for display in the
-	 *            inventory.
+	 * @param fDescription
+	 *            - the description of the item in french. This is the This
+	 *            constructor also takes an image for display in the inventory.
 	 */
 	public Item(String cName, String cDescription, ImageIcon img,
 			Region itemRegion, String fDescription) {
@@ -65,7 +69,7 @@ public class Item implements Serializable {
 	Region getRegion() {
 		return r;
 	}
-	
+
 	void setRegion(Region reg) {
 		r = reg;
 	}

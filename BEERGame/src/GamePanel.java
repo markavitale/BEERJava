@@ -12,26 +12,32 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import javax.swing.JPanel;
-
+/**
+ * @author vitalema and hannantt
+ * 
+ *         This class represents the current state of the game
+ */
+@SuppressWarnings("serial")
 class GamePanel extends JPanel implements MouseListener, MouseMotionListener,
 		Serializable {
 
 	private Image img;
-	private Game myGame;
+	private Launcher l;
+
 	private InventoryPanel invPanel;
 	private boolean mouseIsInsideRegion;
 	private SidePanel sidePanel;
 	private Timer t;
 
-	public GamePanel(Launcher l, SidePanel sidePane) {
+	public GamePanel(Launcher launch, SidePanel sidePane) {
 		this.addMouseListener(this);
 		this.addMouseMotionListener(this);
 		t = new Timer();
 		this.sidePanel = sidePane;
 		invPanel = sidePanel.getInvPanel();
 		mouseIsInsideRegion = false;
-		this.myGame = l.getGame();
-		this.img = myGame.getCurrentView().getCurrentImage().getImage();
+		l = launch;
+		this.img = l.getGame().getCurrentView().getCurrentImage().getImage();
 		Dimension size = new Dimension(img.getWidth(null), img.getHeight(null));
 		setPreferredSize(size);
 		setLayout(new FlowLayout());
@@ -55,13 +61,13 @@ class GamePanel extends JPanel implements MouseListener, MouseMotionListener,
 	}
 
 	public void paintComponent(Graphics g) {
-		View v = myGame.getCurrentView();
+		View v = l.getGame().getCurrentView();
 
-		if (myGame.isPaused()) {
+		if (l.getGame().isPaused()) {
 
-			v = myGame.getPauseView();
+			v = l.getGame().getPauseView();
 		}
-		if (myGame.getLanguage() == "french") {
+		if (l.getGame().getLanguage() == "french") {
 			g.drawImage(v.getFrenchImage().getImage(), 0, 0, null);
 		} else {
 			g.drawImage(v.getCurrentImage().getImage(), 0, 0, null);
@@ -71,7 +77,7 @@ class GamePanel extends JPanel implements MouseListener, MouseMotionListener,
 	}
 
 	public void updateView(Region currentRegion) {
-		myGame.changeView(currentRegion.getView());
+		l.getGame().changeView(currentRegion.getView());
 		sidePanel.updateText();
 		mouseIsInsideRegion = false;
 		this.repaint();
@@ -80,22 +86,22 @@ class GamePanel extends JPanel implements MouseListener, MouseMotionListener,
 	public void checkForDynamite(Region currentRegion) {
 
 		if (currentRegion.getRequiredItem().getName().equals("dynamitewithstring")) {
-			myGame.getCurrentPlayer().getInventory()
-					.remove(myGame.getCurrentPlayer().getInventory().get(3));
+			l.getGame().getCurrentPlayer().getInventory()
+					.remove(l.getGame().getCurrentPlayer().getInventory().get(3));
 
-			invPanel.setSelected(myGame.getCurrentPlayer().getInventory()
+			invPanel.setSelected(l.getGame().getCurrentPlayer().getInventory()
 					.get(2));
 			invPanel.repaint();
 		}
 	}
 
 	public void checkItem() {
-		Region currentRegion = myGame.getCurrentView().getRegions().get(0);
+		Region currentRegion = l.getGame().getCurrentView().getRegions().get(0);
 		if (currentRegion.hasItem()
-				&& (!this.myGame.getCurrentPlayer().getInventory()
+				&& (!this.l.getGame().getCurrentPlayer().getInventory()
 						.contains(currentRegion.getItem()))) {
 			updateView(currentRegion);
-			this.myGame.getCurrentPlayer().addItem(currentRegion.getItem());
+			this.l.getGame().getCurrentPlayer().addItem(currentRegion.getItem());
 			this.invPanel.repaint();
 		} else {
 			if (currentRegion.hasRequiredItem()
@@ -114,7 +120,7 @@ class GamePanel extends JPanel implements MouseListener, MouseMotionListener,
 
 	public void checkRegion(int x, int y) {
 
-		Region currentRegion = myGame.getCurrentView().getRegions().get(0);
+		Region currentRegion = l.getGame().getCurrentView().getRegions().get(0);
 		if (currentRegion.isInsideRegion(x, y)) {
 			checkItem();
 
@@ -124,20 +130,12 @@ class GamePanel extends JPanel implements MouseListener, MouseMotionListener,
 
 	public void checkForWaitView() {
 
-		if (myGame.getCurrentView().getRegions().get(0).hasWaitView()) {
+		if (l.getGame().getCurrentView().getRegions().get(0).hasWaitView()) {
 			t.schedule(new WaitViewUpdate(), 2000);
 		}
 
 	}
 
-	// if (myGame.getCurrentView().getRegions().get(0).hasWaitView()) {
-	// Thread.sleep(500);
-	// this.repaint();
-	// System.out.println("here");
-	// Thread.sleep(4000);
-	// checkRegion(50,50);
-	//
-	// }
 	class WaitViewUpdate extends TimerTask {
 		public void run() {
 			GamePanel.this.checkRegion(50, 50);
@@ -147,44 +145,43 @@ class GamePanel extends JPanel implements MouseListener, MouseMotionListener,
 
 	@Override
 	public void mouseClicked(MouseEvent arg0) {
-
+		if (l.getGame().getCurrentView().getRegions().get(0).getView() != null) {
 		checkRegion(arg0.getX(), arg0.getY());
-		myGame.unpauseGame();
+		l.getGame().unpauseGame();
+		}
 	}
 
 	@Override
 	public void mouseEntered(MouseEvent arg0) {
-		// TODO Auto-generated method stub
+
 
 	}
 
 	@Override
 	public void mouseExited(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-
+	
 	}
 
 	@Override
 	public void mousePressed(MouseEvent arg0) {
-		// TODO Auto-generated method stub
 
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent arg0) {
-		// TODO Auto-generated method stub
 
 	}
 
 	@Override
 	public void mouseDragged(MouseEvent e) {
-		// TODO Auto-generated method stub
+
 
 	}
 
 	@Override
 	public void mouseMoved(MouseEvent e) {
-		if (myGame.getCurrentView().getRegions().get(0)
+		if (l.getGame().getCurrentView().getRegions().get(0).getView() != null) {
+		if (l.getGame().getCurrentView().getRegions().get(0)
 				.isInsideRegion(e.getX(), e.getY())) {
 			mouseIsInsideRegion = true;
 			this.repaint();
@@ -192,7 +189,8 @@ class GamePanel extends JPanel implements MouseListener, MouseMotionListener,
 			mouseIsInsideRegion = false;
 			this.repaint();
 		}
-		// TODO Auto-generated method stub
+		}
+
 
 	}
 }

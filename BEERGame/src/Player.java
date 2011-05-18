@@ -1,6 +1,12 @@
 import java.io.Serializable;
 import java.util.ArrayList;
 
+/**
+ * @author vitalema and hannantt
+ * 
+ *         This class represents the current player of the game
+ */
+@SuppressWarnings("serial")
 public class Player implements Serializable {
 
 	String name;
@@ -23,7 +29,7 @@ public class Player implements Serializable {
 		return name;
 	}
 
-	public void setPlayerName(String pName) {
+	void setPlayerName(String pName) {
 		this.name = pName;
 	}
 
@@ -38,11 +44,13 @@ public class Player implements Serializable {
 	void addItem(Item i) {
 		inventory.add(i);
 	}
-	
+
 	void removeItem(Item i) {
 		if (inventory.contains(i)) {
-			inventory.remove(i);}
+			inventory.remove(i);
+		}
 	}
+
 	ArrayList<Item> getInventory() {
 		return this.inventory;
 	}

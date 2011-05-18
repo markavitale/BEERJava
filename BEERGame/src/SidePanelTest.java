@@ -14,7 +14,7 @@ public class SidePanelTest {
 	public void setUp() throws Exception {
 		l = new Launcher();
 		p = new SidePanel(l);
-		invPanel = new InventoryPanel(l.getGame(),p);
+		invPanel = new InventoryPanel(l,p);
 	}
 
 	@Test

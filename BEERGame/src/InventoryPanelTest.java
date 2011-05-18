@@ -17,7 +17,7 @@ public class InventoryPanelTest {
 	public void setUp() {
 		l = new Launcher();
 		SidePanel sidePanel = new SidePanel(l);
-		invPanel = new InventoryPanel(l.getGame(),sidePanel);
+		invPanel = new InventoryPanel(l,sidePanel);
 	
 		Region r = new Region(0,0,50,50);
 		l.getGame().getCurrentPlayer().getInventory().get(0).setRegion(r);

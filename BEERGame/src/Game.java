@@ -1,15 +1,16 @@
 import java.io.Serializable;
-import java.util.Timer;
 import java.util.TimerTask;
-
-import javax.swing.ImageIcon;
 
 /**
  * @author vitalema and hannantt
  * 
  *         This class represents the current state of the game
  */
+@SuppressWarnings("serial")
 public class Game extends TimerTask implements Serializable {
+	/**
+	 * 
+	 */
 	Player currentPlayer;
 	View currentView;
 	boolean isMuted;
@@ -23,8 +24,9 @@ public class Game extends TimerTask implements Serializable {
 	 *            - the player who is playing the game.
 	 * @param v
 	 *            - the starting view
-	 * 
-	 *            The constructor for making a new game instance.
+	 * @param pauseV
+	 *            - the pause view The constructor for making a new game
+	 *            instance.
 	 */
 	public Game(Player p, View v, View pauseV) {
 		language = "english";
@@ -44,24 +46,36 @@ public class Game extends TimerTask implements Serializable {
 	public void setLanguage(String lang) {
 		this.language = lang;
 	}
+
+	/**
+	 * @param i
+	 *            - dynamite item sets the dynamite item
+	 */
 	public void setDynamiteItem(Item i) {
 		this.dynamiteItem = i;
 	}
-	
+
+	/**
+	 * @return the dynamite item
+	 */
 	public Item getDynamiteItem() {
 		return this.dynamiteItem;
 	}
-	
-		
+
 	/**
 	 * @return the current view
 	 */
 	public View getCurrentView() {
 		return this.currentView;
 	}
+
+	/**
+	 * @return the pause view
+	 */
 	public View getPauseView() {
 		return this.pauseView;
 	}
+
 	/**
 	 * @return the language the game should be played in.
 	 */
@@ -107,6 +121,6 @@ public class Game extends TimerTask implements Serializable {
 	@Override
 	public void run() {
 		changeView(currentView.getRegions().get(0).getWaitView());
-		
+
 	}
 }

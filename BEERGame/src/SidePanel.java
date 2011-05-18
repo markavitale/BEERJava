@@ -1,9 +1,5 @@
-import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.Serializable;
@@ -12,6 +8,12 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
+/**
+ * @author vitalema and hannantt
+ * 
+ *         This class represents the sidepanel for the game
+ */
+@SuppressWarnings("serial")
 public class SidePanel extends JPanel implements Serializable {
 	private Launcher l;
 	private InventoryPanel invPanel;
@@ -19,19 +21,23 @@ public class SidePanel extends JPanel implements Serializable {
 	private JTextArea textAreaBottom;
 	private JTextArea invDesc;
 	private JButton combineButton;
-	
+
+	/**
+	 * @param launch
+	 * 			- the current launcher
+	 */
 	public SidePanel(Launcher launch) {
 		l = launch;
 		l.getGame().setLanguage("english");
 		textAreaViews = new JTextArea(l.getGame().getCurrentView()
-				.getCurrentDescription(), 5, 1);
+				.getCurrentDescription(), 4, 1);
 		textAreaViews.setLineWrap(true);
 		textAreaViews.setWrapStyleWord(true);
 		textAreaViews.setEditable(false);
 		JPanel top = new JPanel();
 		top.add(textAreaViews);
 		JPanel middle = new JPanel();
-		invPanel = new InventoryPanel(l.getGame(), this);
+		invPanel = new InventoryPanel(l, this);
 		invDesc = new JTextArea("Inventory");
 		invDesc.setEditable(false);
 		invDesc.setOpaque(false);
@@ -45,19 +51,20 @@ public class SidePanel extends JPanel implements Serializable {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				SidePanel.this.invPanel.checkCombineItem();
-				
-			}});
+
+			}
+		});
 
 		JPanel bottom = new JPanel();
-		textAreaBottom = new JTextArea("no item selected", 4, 1);
+		textAreaBottom = new JTextArea("No Item Selected", 6, 1);
 		textAreaBottom.setEditable(false);
 		textAreaBottom.setLineWrap(true);
 		textAreaBottom.setWrapStyleWord(true);
 		bottom.add(combineButton);
 		bottom.add(textAreaBottom);
-		top.setPreferredSize(new Dimension(100, 100));
+		top.setPreferredSize(new Dimension(100, 70));
 		middle.setPreferredSize(new Dimension(100, 400));
-		bottom.setPreferredSize(new Dimension(100, 100));
+		bottom.setPreferredSize(new Dimension(100, 130));
 		setPreferredSize(new Dimension(100, 600));
 		this.setLayout(new FlowLayout());
 		add(top);
@@ -65,27 +72,28 @@ public class SidePanel extends JPanel implements Serializable {
 		add(bottom);
 
 	}
-	public JTextArea getTopTextArea() {
+
+	JTextArea getTopTextArea() {
 		return textAreaViews;
 	}
-	
-	public JTextArea getMiddleTextArea() {
+
+	JTextArea getMiddleTextArea() {
 		return invDesc;
 	}
-	
-	public JTextArea getBottomTextArea() {
+
+	JTextArea getBottomTextArea() {
 		return textAreaBottom;
 	}
 
-	public InventoryPanel getInvPanel() {
+	InventoryPanel getInvPanel() {
 		return this.invPanel;
 	}
-	
-	public void setInvPanel(InventoryPanel inv) {
-		this.invPanel = inv;
-		}
 
-	public void updateText() {
+	void setInvPanel(InventoryPanel inv) {
+		this.invPanel = inv;
+	}
+
+	void updateText() {
 		if (l.getGame().getLanguage() == "english") {
 			textAreaViews.setText(l.getGame().getCurrentView()
 					.getCurrentDescription());
@@ -93,6 +101,8 @@ public class SidePanel extends JPanel implements Serializable {
 			invDesc.setText("Inventory");
 			if (invPanel.selected != null) {
 				textAreaBottom.setText(invPanel.selected.getDescription());
+			} else {
+				textAreaBottom.setText("No Item Selected");
 			}
 
 		} else {
@@ -100,18 +110,17 @@ public class SidePanel extends JPanel implements Serializable {
 				textAreaBottom
 						.setText(invPanel.selected.getFrenchDescription());
 			} else {
-				textAreaBottom.setText("no item selected in french");
+				textAreaBottom.setText("Pas de description");
 			}
-			
-			combineButton.setText("French");
-			invDesc.setText("French Inventory");
+
+			combineButton.setText("Combiner");
+			invDesc.setText("Inventaire");
 			if (l.getGame().getCurrentView().getFrenchImage() != null) {
 				textAreaViews.setText(l.getGame().getCurrentView()
 						.getFrenchDescription());
 			}
 		}
 
-		
 	}
 
 }

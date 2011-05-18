@@ -1,8 +1,5 @@
-import java.awt.Image;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Timer;
-import java.util.TimerTask;
 
 import javax.swing.ImageIcon;
 
@@ -11,7 +8,8 @@ import javax.swing.ImageIcon;
  * 
  *         this is a view in the game
  */
-public class View implements Serializable{
+@SuppressWarnings("serial")
+public class View implements Serializable {
 	String description;
 	String frenchDescription;
 	ImageIcon background;
@@ -35,6 +33,18 @@ public class View implements Serializable{
 		clickableRegions = new ArrayList<Region>();
 	}
 
+	/**
+	 * @param cDescription
+	 *            - description of this view
+	 * @param cBackground
+	 *            - the background image for this view
+	 * @param fDescription
+	 *            - the French version of this description
+	 * @param frenchBack
+	 *            - the French version of this view
+	 * @param r
+	 *            the clickable region in the view
+	 */
 	public View(String cDescription, ImageIcon cBackground,
 			String fDescription, ImageIcon frenchBack, Region r) {
 		description = cDescription;
@@ -51,6 +61,8 @@ public class View implements Serializable{
 	 *            - description of this view
 	 * @param cBackground
 	 *            - the background image for this view
+	 * @param r
+	 *            -the clickable region
 	 * @param french
 	 *            - the French version of this view
 	 * 
@@ -59,59 +71,73 @@ public class View implements Serializable{
 
 	public View(String cDescription, ImageIcon cBackground, Region r) {
 		description = cDescription;
-		
+
 		background = cBackground;
 		possibleMoves = new ArrayList<View>();
 		clickableRegions = new ArrayList<Region>();
 		clickableRegions.add(r);
 	}
-	
-	public View(String cDescription, ImageIcon cBackground, String fDescription, Region r) {
+
+	/**
+	 * @param cDescription
+	 *            - description of this view
+	 * @param cBackground
+	 *            - the background image for this view
+	 * @param fDescription
+	 *            - the French version of this description
+	 * @param r
+	 *            the clickable region in the view
+	 */
+	public View(String cDescription, ImageIcon cBackground,
+			String fDescription, Region r) {
 		frenchDescription = fDescription;
-//		if (cDescription == "the dynamite is lit, back away!") {
-//			TimerTask newView = new View("you win", new ImageIcon("images/youwin.jpg"),
-//					"you win in french", new ImageIcon("images/youwinfrench.jpg"), newGame);
-//			Timer timer = new Timer();
-//			timer.schedule(newView, 100);
-//			}
+		// if (cDescription == "the dynamite is lit, back away!") {
+		// TimerTask newView = new View("you win", new
+		// ImageIcon("images/youwin.jpg"),
+		// "you win in french", new ImageIcon("images/youwinfrench.jpg"),
+		// newGame);
+		// Timer timer = new Timer();
+		// timer.schedule(newView, 100);
+		// }
 		description = cDescription;
 		background = cBackground;
 		possibleMoves = new ArrayList<View>();
 		clickableRegions = new ArrayList<Region>();
 		clickableRegions.add(r);
 	}
+
 	/**
 	 * @return the image for this view
 	 */
 	public ImageIcon getCurrentImage() {
 		return background;
 	}
-	
+
 	/**
 	 * @return the alternate view in French
 	 */
 	public ImageIcon getFrenchImage() {
 		if (this.frenchBackground != null) {
-		return this.frenchBackground;
-	}
+			return this.frenchBackground;
+		}
 		return this.background;
 	}
 
-	public String getFrenchDescription() {
+	String getFrenchDescription() {
 		return this.frenchDescription;
 	}
 
 	/**
 	 * @return the description of this view
 	 */
-	public String getCurrentDescription() {
+	String getCurrentDescription() {
 		return this.description;
 	}
 
 	/**
 	 * @return the list of clickable regions
 	 */
-	public ArrayList<Region> getRegions() {
+	ArrayList<Region> getRegions() {
 		return this.clickableRegions;
 	}
 
@@ -119,7 +145,7 @@ public class View implements Serializable{
 	 * @return return the list of possible views the user could get to from this
 	 *         view
 	 */
-	public ArrayList<View> getViews() {
+	ArrayList<View> getViews() {
 		return this.possibleMoves;
 	}
 
@@ -148,6 +174,5 @@ public class View implements Serializable{
 	void removeRegion(Region r) {
 		clickableRegions.remove(r);
 	}
-
 
 }
