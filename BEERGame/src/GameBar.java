@@ -81,6 +81,8 @@ public class GameBar extends JMenuBar implements Serializable {
 			public void actionPerformed(ActionEvent arg0) {
 				GameBar.this.l.getGame().setLanguage("english");
 				GameBar.this.fileMenu.setText("File");
+				GameBar.this.french.setText("French");
+				GameBar.this.english.setText("English");
 				// GameBar.this.newGame.setText("New game");
 				GameBar.this.l.getFrame().setTitle(
 						GameBar.this.l.getUserName() + "'s game");
