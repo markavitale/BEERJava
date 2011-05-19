@@ -67,7 +67,7 @@ public class GameBar extends JMenuBar implements Serializable {
 				GameBar.this.fileMenu.setText("Fichier");
 				GameBar.this.newGame.setText("Nouveau jeu");
 				GameBar.this.l.getFrame().setTitle(
-						"Le jeu de" + GameBar.this.l.getUserName());
+						"Le jeu de " + GameBar.this.l.getUserName());
 				GameBar.this.l.getGamePanel().repaint();
 				GameBar.this.l.getGamePanel().getSidePanel().updateText();
 			}
