@@ -65,7 +65,7 @@ public class GameBar extends JMenuBar implements Serializable {
 				GameBar.this.english.setText("Anglais");
 				GameBar.this.l.getGame().setLanguage("french");
 				GameBar.this.fileMenu.setText("Fichier");
-				// GameBar.this.newGame.setText("Nouveau jeu");
+				GameBar.this.newGame.setText("Nouveau jeu");
 				GameBar.this.l.getFrame().setTitle(
 						"Le jeu de" + GameBar.this.l.getUserName());
 				GameBar.this.l.getGamePanel().repaint();
@@ -83,7 +83,7 @@ public class GameBar extends JMenuBar implements Serializable {
 				GameBar.this.fileMenu.setText("File");
 				GameBar.this.french.setText("French");
 				GameBar.this.english.setText("English");
-				// GameBar.this.newGame.setText("New game");
+				GameBar.this.newGame.setText("New game");
 				GameBar.this.l.getFrame().setTitle(
 						GameBar.this.l.getUserName() + "'s game");
 				GameBar.this.l.getGamePanel().repaint();
