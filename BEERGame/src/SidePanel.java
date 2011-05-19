@@ -28,7 +28,7 @@ public class SidePanel extends JPanel implements Serializable {
 	 */
 	public SidePanel(Launcher launch) {
 		l = launch;
-		l.getGame().setLanguage("english");
+		//l.getGame().setLanguage("english");
 		textAreaViews = new JTextArea(l.getGame().getCurrentView()
 				.getCurrentDescription(), 4, 1);
 		textAreaViews.setLineWrap(true);
@@ -85,6 +85,9 @@ public class SidePanel extends JPanel implements Serializable {
 		return textAreaBottom;
 	}
 
+	JButton getCombine() {
+		return combineButton;
+	}
 	InventoryPanel getInvPanel() {
 		return this.invPanel;
 	}
@@ -115,9 +118,11 @@ public class SidePanel extends JPanel implements Serializable {
 
 			combineButton.setText("Combiner");
 			invDesc.setText("Inventaire");
+			if (l.getGame().getCurrentView()!=null) {
 			if (l.getGame().getCurrentView().getFrenchImage() != null) {
 				textAreaViews.setText(l.getGame().getCurrentView()
 						.getFrenchDescription());
+			}
 			}
 		}
 

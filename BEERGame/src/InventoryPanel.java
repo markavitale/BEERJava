@@ -43,9 +43,9 @@ public class InventoryPanel extends JPanel implements MouseListener,
 	}
 
 	/**
-	 * This method checks to see if you have dynamite or string
-	 * selected, and if you have pressed combine and then select
-	 * the other one it will set combineItem to true 
+	 * This method checks to see if you have dynamite or string selected, and if
+	 * you have pressed combine and then select the other one it will set
+	 * combineItem to true
 	 */
 	public void checkCombineItem() {
 		if (returnSelected() != null) {
@@ -80,12 +80,12 @@ public class InventoryPanel extends JPanel implements MouseListener,
 
 	@Override
 	public void mouseClicked(MouseEvent arg0) {
-		if (l.getGame().getCurrentPlayer().getInventory().size() > 0) {
-			checkCombineClick(arg0.getPoint());
-			checkImageClick(arg0.getPoint());
-			this.repaint();
-			sidePanel.updateText();
-		}
+		// if (l.getGame().getCurrentPlayer().getInventory().size() > 0) {
+		// checkCombineClick(arg0.getPoint());
+		// checkImageClick(arg0.getPoint());
+		// this.repaint();
+		// sidePanel.updateText();
+		// }
 
 	}
 
@@ -97,9 +97,8 @@ public class InventoryPanel extends JPanel implements MouseListener,
 	}
 
 	/**
-	 * @param  i
-	 * 			- the item to be set
-	 * sets the selected item to i
+	 * @param i
+	 *            - the item to be set sets the selected item to i
 	 */
 	public void setSelected(Item i) {
 		this.selected = i;
@@ -107,10 +106,9 @@ public class InventoryPanel extends JPanel implements MouseListener,
 
 	/**
 	 * @param p
-	 * 			- the point clicked
-	 * checks to see if you combineItem is true then checks to see
-	 * if you are clicking on dynamite or string and 
-	 * combines them into one item
+	 *            - the point clicked checks to see if you combineItem is true
+	 *            then checks to see if you are clicking on dynamite or string
+	 *            and combines them into one item
 	 */
 	public void checkCombineClick(Point p) {
 		if (combineItem) {
@@ -166,8 +164,8 @@ public class InventoryPanel extends JPanel implements MouseListener,
 
 	/**
 	 * @param p
-	 * 			- the point clicked
-	 * This method checks to see what item you are clicking on
+	 *            - the point clicked This method checks to see what item you
+	 *            are clicking on
 	 */
 	public void checkImageClick(Point p) {
 		for (int i = 0; i < l.getGame().getCurrentPlayer().getInventory()
@@ -183,25 +181,31 @@ public class InventoryPanel extends JPanel implements MouseListener,
 
 	@Override
 	public void mouseEntered(MouseEvent arg0) {
-		// TODO Auto-generated method stub
 
 	}
 
 	@Override
 	public void mouseExited(MouseEvent arg0) {
-		// TODO Auto-generated method stub
 
+	}
+	public void checkMouseClick(Point p) {
+		if (l.getGame().getCurrentPlayer().getInventory().size() > 0) {
+			checkCombineClick(p);
+			checkImageClick(p	);
+			this.repaint();
+			sidePanel.updateText();
+		}
 	}
 
 	@Override
 	public void mousePressed(MouseEvent arg0) {
-		// TODO Auto-generated method stub
+		checkMouseClick(arg0.getPoint());
+	
 
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent arg0) {
-		// TODO Auto-generated method stub
 
 	}
 

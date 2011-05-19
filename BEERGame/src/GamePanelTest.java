@@ -13,10 +13,11 @@ public class GamePanelTest {
 
 	// region is new Region(56, 320, 25, 60, taserItem);
 	@Before
-	public void setUp() throws Exception {
+	public void setUp() throws Exception{
 		this.l = new Launcher();
+		l.setGame(l.readGame());
 		v = l.getGame().getCurrentView();
-		v2 = v.getViews().get(0);
+		v2 = v.getRegions().get(0).getView();
 
 		SidePanel p = new SidePanel(l);
 		InventoryPanel invPanel = new InventoryPanel(l, p);
@@ -29,20 +30,20 @@ public class GamePanelTest {
 	}
 
 	@Test
-	public void checkRegionFalse() throws InterruptedException {
-		panel.checkRegion(1, 1);
+	public void checkRegionFalse() {
+		panel.checkRegion(850, 850);
 		assertEquals(v, l.getGame().getCurrentView());
 	}
 
 	@Test
-	public void checkRegionChangeFalse() throws InterruptedException {
+	public void checkRegionChangeFalse() {
 		Region currentRegion = l.getGame().getCurrentView().getRegions().get(0);
 		panel.checkRegion(currentRegion.getX(), currentRegion.getY());
 		assertFalse(v.equals(l.getGame().getCurrentView()));
 	}
 
 	@Test
-	public void checkRegionChangeTrue() throws InterruptedException {
+	public void checkRegionChangeTrue() {
 		Region currentRegion = l.getGame().getCurrentView().getRegions().get(0);
 		panel.checkRegion(currentRegion.getX(), currentRegion.getY());
 		assertEquals(v2, l.getGame().getCurrentView());

@@ -1,4 +1,5 @@
 import java.awt.FlowLayout;
+import java.awt.Point;
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.FileInputStream;
@@ -6,6 +7,7 @@ import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
@@ -20,6 +22,7 @@ public class Launcher {
 	private GamePanel gamePanel;
 	private JFrame frame;
 	private String userName;
+	private GameBar gameBar;
 
 	/**
 	 * on creation of a Launcher object, the game is created and initialized
@@ -34,7 +37,7 @@ public class Launcher {
 //				new ImageIcon("images/matches.jpg"),
 //				new Region(15, 150, 70, 70), "Ces matchs peuvent allumer des choses");
 //		Item keysItem = new Item("keys",
-//				"These keys unlock safety deposity boxes", new ImageIcon(
+//				"These keys unlock safety deposit boxes", new ImageIcon(
 //						"images/keys.jpg"), new Region(15, 75, 70, 70),
 //				"Ces clefs déverrouiller boîtes de sécurité");
 //		Item taserItem = new Item("taser", "This taser can be used on bad guys",
@@ -188,13 +191,24 @@ public class Launcher {
 		return this.frame;
 	}
 	
+	void setFrame(JFrame j) {
+		frame = j;
+	}
 	/**
 	 * @return the username
 	 */
 	public String getUserName() {
 		return this.userName;
 	}
-
+	
+	GameBar getGameBar() {
+		return gameBar;
+	}
+	
+	void setGameBar(GameBar gB) {
+		gameBar = gB;
+	}
+	
 	/**
 	 * @param args
 	 * @throws Exception
@@ -206,6 +220,7 @@ public class Launcher {
 		Launcher l = new Launcher();
 		//l.writeGame(l.getGame());
 		l.setGame(l.readGame());
+		l.getGame().setLanguage("english");
 		l.userName = JOptionPane.showInputDialog(null,
 				"What is your name?", "Enter your name",
 				JOptionPane.QUESTION_MESSAGE);
@@ -214,9 +229,9 @@ public class Launcher {
 		l.gamePanel = new GamePanel(l, sidePanel);
 		l.frame = new JFrame();
 
-		GameBar bar = new GameBar(l);
+		l.gameBar = new GameBar(l);
 		l.frame.setTitle(l.userName + "'s Game");
-		l.frame.setJMenuBar(bar);
+		l.frame.setJMenuBar(l.gameBar);
 		l.frame.setLayout(new FlowLayout());
 		l.frame.add(l.gamePanel);
 		l.frame.add(sidePanel);

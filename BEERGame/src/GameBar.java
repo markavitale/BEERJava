@@ -56,7 +56,6 @@ public class GameBar extends JMenuBar implements Serializable {
 			}
 		});
 		fileMenu.add(newGame);
-
 		french = new JMenuItem("French");
 		french.addActionListener(new ActionListener() {
 
@@ -106,5 +105,20 @@ public class GameBar extends JMenuBar implements Serializable {
 		});
 		fileMenu.add(pause);
 		this.add(fileMenu);
+	}
+	public JMenuItem getEnglish() {
+		return english;
+	}
+	
+	public JMenuItem getFrench() {
+		return french;
+	}
+	
+	public JMenuItem getPause() {
+		return pause;
+	}
+	
+	public JMenuItem getNewGame() {
+		return newGame;
 	}
 }

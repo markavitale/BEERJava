@@ -13,6 +13,8 @@ public class SidePanelTest {
 	@Before
 	public void setUp() throws Exception {
 		l = new Launcher();
+		this.l = new Launcher();
+		l.setGame(l.readGame());
 		p = new SidePanel(l);
 		invPanel = new InventoryPanel(l,p);
 	}
@@ -34,7 +36,7 @@ public class SidePanelTest {
 	public void testUpdateTextInvDescFrench() {
 		l.getGame().setLanguage("french");
 		p.updateText();
-		assertEquals(p.getMiddleTextArea().getText(),"French Inventory");
+		assertEquals(p.getMiddleTextArea().getText(),"Inventaire");
 	}
 	
 	@Test

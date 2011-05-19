@@ -14,13 +14,13 @@ public class InventoryPanelTest {
 	Launcher l;
 	
 	@Before
-	public void setUp() {
+	public void setUp() throws Exception {
 		l = new Launcher();
+		this.l = new Launcher();
+		l.setGame(l.readGame());
 		SidePanel sidePanel = new SidePanel(l);
 		invPanel = new InventoryPanel(l,sidePanel);
 	
-		Region r = new Region(0,0,50,50);
-		l.getGame().getCurrentPlayer().getInventory().get(0).setRegion(r);
 	}
 	
 	@Test

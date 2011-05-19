@@ -27,12 +27,14 @@ class GamePanel extends JPanel implements MouseListener, MouseMotionListener,
 	private InventoryPanel invPanel;
 	private boolean mouseIsInsideRegion;
 	private SidePanel sidePanel;
-	private Timer t;
+
+	private int timeToWait;
+	private WaitViewUpdate waitViewUpdate;
 
 	public GamePanel(Launcher launch, SidePanel sidePane) {
 		this.addMouseListener(this);
 		this.addMouseMotionListener(this);
-		t = new Timer();
+		timeToWait = 2000;
 		this.sidePanel = sidePane;
 		invPanel = sidePanel.getInvPanel();
 		mouseIsInsideRegion = false;
@@ -47,7 +49,9 @@ class GamePanel extends JPanel implements MouseListener, MouseMotionListener,
 	public SidePanel getSidePanel() {
 		return this.sidePanel;
 	}
-
+	Launcher getLauncher() {
+		return l;
+	}
 	public void drawRegions(Graphics g, View v) {
 		if (mouseIsInsideRegion == true) {
 			ArrayList<Region> regionList = v.getRegions();
@@ -119,19 +123,34 @@ class GamePanel extends JPanel implements MouseListener, MouseMotionListener,
 	}
 
 	public void checkRegion(int x, int y) {
-
+		l.getGame().unpauseGame();
 		Region currentRegion = l.getGame().getCurrentView().getRegions().get(0);
 		if (currentRegion.isInsideRegion(x, y)) {
 			checkItem();
+		
 
 		}
 		checkForWaitView();
 	}
 
+	public void setWaitTime(Integer time) {
+		timeToWait = time;
+	}
+//	public void cancelWaitView() {
+//		t.cancel();
+//		t.purge();
+//	}
+	
+	public WaitViewUpdate getWaitView() {
+		return waitViewUpdate;
+	}
 	public void checkForWaitView() {
-
+		Timer t = new Timer();
+			waitViewUpdate = new WaitViewUpdate();
 		if (l.getGame().getCurrentView().getRegions().get(0).hasWaitView()) {
-			t.schedule(new WaitViewUpdate(), 2000);
+			
+			t.schedule(waitViewUpdate, timeToWait);
+
 		}
 
 	}
@@ -145,10 +164,10 @@ class GamePanel extends JPanel implements MouseListener, MouseMotionListener,
 
 	@Override
 	public void mouseClicked(MouseEvent arg0) {
-		if (l.getGame().getCurrentView().getRegions().get(0).getView() != null) {
-		checkRegion(arg0.getX(), arg0.getY());
-		l.getGame().unpauseGame();
-		}
+//		if (l.getGame().getCurrentView().getRegions().get(0).getView() != null) {
+//		checkRegion(arg0.getX(), arg0.getY());
+//		l.getGame().unpauseGame();
+//		}
 	}
 
 	@Override
@@ -164,7 +183,10 @@ class GamePanel extends JPanel implements MouseListener, MouseMotionListener,
 
 	@Override
 	public void mousePressed(MouseEvent arg0) {
-
+		if (l.getGame().getCurrentView().getRegions().get(0).getView() != null) {
+			checkRegion(arg0.getX(), arg0.getY());
+			l.getGame().unpauseGame();
+			}
 	}
 
 	@Override
