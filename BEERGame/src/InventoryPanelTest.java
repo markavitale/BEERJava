@@ -43,19 +43,13 @@ public class InventoryPanelTest {
 		assertEquals(invPanel.returnSelected(),i);
 	}
 	
+	
 	@Test
 	public void testImageClickChange() {
 		Item i = new Item("new item", "blah blah", "in french!");
 		invPanel.setSelected(i);
 		invPanel.checkImageClick(new Point(10,10));
-		assertFalse(invPanel.returnSelected() == i);
-	}
-	
-	@Test
-	public void testImageClickChange2() {
-		Item i = new Item("new item", "blah blah", "in french!");
-		invPanel.setSelected(i);
-		invPanel.checkImageClick(new Point(10,10));
+		l.getGame().getCurrentPlayer().addItem(i);
 		assertEquals(invPanel.returnSelected(),
 				l.getGame().getCurrentPlayer().getInventory().get(0));
 	}

@@ -14,6 +14,7 @@ import org.junit.runners.Suite.SuiteClasses;
   ViewTest.class,
   SidePanelTest.class,
   InventoryPanelTest.class,
+  FullGameTester.class,
   LauncherTest.class}
 )
 
